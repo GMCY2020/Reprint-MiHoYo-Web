@@ -2483,7 +2483,7 @@
         <div class="home">
             <!-- 背景视频 -->
             <div class="home-bg">
-                <video class="home-bg-video" src="datas/home/video-bg.mp4" poster="datas/home/video-bg-poster.png"
+                <video class="home-bg-video" src="https://webstatic.mihoyo.com/upload/op-public/2021/08/12/c7f405d6cbb03e5c668a12d3e0de290a_2683598109381103734.mp4" poster="datas/home/video-bg-poster.png"
                     autoplay="autoplay" loop="loop" muted="muted"></video>
                 <div class="home-bg-mask"></div>
             </div>
@@ -2505,7 +2505,7 @@
                 <div class="home-index-btns">
 
                     <!-- 米哈游介绍视频 按钮 -->
-                    <div class="home-index-btns-btn" v-on:click="showPop('datas/home/video-start.mp4')">
+                    <div class="home-index-btns-btn" v-on:click="showPop('https://webstatic.mihoyo.com/upload/op-public/2023/01/13/ff5f7fe208a947bf0c7c0239c54411f4_592291034584067074.mp4')">
                         <div class="home-index-btns-btn-start"></div>
                         <b></b>
                     </div>
@@ -2600,7 +2600,7 @@
 
             <div id="product-start-video-box" class="product-start-video-box">
                 <div class="ps-showbox1">
-                    <div class="ps-btn" V-on:click="showPop('datas/product/video-' + products_choice + '.mp4')">
+                    <div class="ps-btn" V-on:click="showPop(video_dict[products_choice])">
                         <div class="ps-btn-b-box">
                             <b></b>
                         </div>
@@ -3452,7 +3452,18 @@
                 ["12/28", "2022", "米哈游荣获“全国文化企业30强”", "12月28日，光明日报社和经济日报社向社会联合发布了第十四届“全国文化企业30强”名单，上海米哈游网络科技股份有限公司等30家企业进入行列。"],
                 ["11/24", "2022", "米哈游荣获“上海文化企业十强”", "米哈游坚持助力传统文化创新表达、中华文化破圈传播，荣获上海文化企业十强，公司总裁刘伟荣获上海文化企业十大年度人物，公司原创IP“原神”荣获上海十大文化品牌。"],
                 ["11/24", "2022", "“你们好，见字如面！”——阅见未名：图书捐赠公益活动", "2022年，米哈游《未定事件簿》携手韬奋基金会，联合开展了「阅见未名」图书捐赠公益活动。在《未定事件簿》各位玩家的热心支持下，目前已向云南省大理白族自治州11所小学、云南省普洱市澜沧拉祜族自治县36所小学..."],
-            ]
+            ],
+            
+            video_dict: {
+                "bhxy2": "https://webstatic.mihoyo.com/upload/op-public/2021/10/21/35e4609564b506b01e67eaad7a148c6b_1090347207711341997.mp4",
+                "bh3": "https://webstatic.mihoyo.com/upload/op-public/2021/10/03/264970ed40727e0ee788ec6aa225afbc_8113481436414991345.mp4",
+                "wdsjp": "https://webstatic.mihoyo.com/upload/op-public/2021/10/12/4031dcca93ec169b0e996a9d9f721a87_5372790041756089434.mp4",
+                "ys": "https://webstatic.mihoyo.com/upload/op-public/2021/10/03/9ec1205e68959838a18872e71268e399_2717250742320643202.mp4",
+                "bhxqtd": "https://webstatic.mihoyo.com/upload/op-public/2022/07/19/2e8779aed605a59c015c0b622bc8cc2b_6101145759438051441.mp4",
+                "jql": "https://webstatic.mihoyo.com/upload/op-public/2022/05/27/52e560f8e026f41e6a84cf3027bb91ec_5941125512576787727.mp4",
+                "mys": "https://webstatic.mihoyo.com/upload/op-public/2021/10/03/fd16f9950f4e8a8b391b5c0ee31e6277_3085525524991717096.mp4",
+                "rgzm": "https://webstatic.mihoyo.com/upload/op-public/2021/10/03/b30fb141553d7ebbd882c64438a4ec6d_7400351486462137037.mp4"
+            }
         },
 
         created() {
@@ -3772,6 +3783,7 @@
             },
 
             showPop(url) {
+                console.log(url);
                 this.displayPop = true;
 
                 let myVideo = document.getElementById('video')
