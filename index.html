@@ -1,0 +1,4340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米哈游-TECH OTAKUS SAVE THE WORLD</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    
+    <link rel="shortcut icon" href="datas/favicon.ico" type="image/x-icon" />
+
+    <!-- 公共 -->
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu, sans-serif;
+            font-size: 14px;
+            word-spacing: 1px;
+
+            min-width: 1200px;
+            min-height: 650px;
+
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+
+        #app {
+            width: 100%;
+            height: 100%;
+
+            position: absolute;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .home,
+        .product,
+        .about,
+        .join,
+        .news {
+            width: 100%;
+            height: 100%;
+        }
+
+        .product,
+        .about,
+        .join,
+        .news {
+            background: url(datas/bg.png);
+            background-color: #fff;
+        }
+
+        .bottom {
+            height: 40%;
+            background-color: black;
+
+            font-size: 100px;
+            color: white;
+        }
+
+        .btns-next {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            margin-top: 80px;
+
+            width: 70px;
+            height: 60px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+        }
+
+        .btns-next-mouse {
+            width: 15px;
+        }
+
+        .btns-next-arrows {
+            margin-top: 10px;
+            width: 5px;
+
+            animation: forward 1.4s ease-in-out infinite;
+        }
+
+        @keyframes forward {
+            from {
+                margin-top: 10px;
+            }
+
+            to {
+                margin-top: 70px;
+            }
+        }
+
+        .public-navigation {
+            position: sticky;
+            bottom: 0px;
+
+            width: 100%;
+            height: 8%;
+            background-color: #fff;
+            border: 1px solid #e6e7eb;
+
+            color: #676B73;
+            display: flex;
+            z-index: 20;
+        }
+
+        .navigation-left {
+            width: 93%;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-pans::after {
+            content: "";
+            width: 1px;
+            height: 20px;
+            background-color: #e6e7eb;
+
+
+            margin-left: 40px;
+        }
+
+        .navigation-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation-logo img {
+            height: 55%;
+
+            margin-left: 50px;
+        }
+
+        .navigation-pans {
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        .navigation-pan {
+            margin-left: 80px;
+        }
+
+        .navigation-pan :hover {
+            color: #3778E5;
+            font-weight: bold;
+        }
+
+        .navigation-pan-choice {
+            color: #3778E5;
+            font-weight: bold;
+        }
+
+        .navigation-right {
+            width: 7%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .navigation-right-cn,
+        .navigation-right-en {
+            font-weight: bold;
+        }
+
+        .navigation-right-cn {
+            display: flex;
+            margin-left: 20px;
+        }
+
+        .navigation-right-en {
+            color: #DEE1E6;
+            margin-left: 55px;
+        }
+
+        .navigation-right-line {
+            width: 50px;
+            height: 1px;
+            background-color: #adafb4;
+
+            margin-left: 24px;
+
+            transform: rotate(-27deg);
+        }
+
+
+        .public-line-left-top {
+            position: sticky;
+            bottom: 0px;
+
+            pointer-events: none;
+        }
+
+        .public-line-left-bottom {
+            position: sticky;
+            bottom: 0px;
+            z-index: 1;
+
+            pointer-events: none;
+
+        }
+
+        .public-line-left-top img {
+            width: 177px;
+
+            opacity: 0.7;
+
+            margin-bottom: 200px;
+
+            pointer-events: none;
+        }
+
+        .public-line-left-bottom img {
+            width: 7px;
+
+            margin-left: 50px;
+            margin-bottom: 20px;
+        }
+
+        .public-btns {
+            position: sticky;
+            bottom: 0px;
+
+
+            display: flex;
+            justify-content: space-between;
+
+            z-index: 8;
+
+
+            pointer-events: none;
+        }
+
+        .public-btns-detail {
+            width: 65px;
+            height: 112px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            cursor: pointer;
+            pointer-events: all;
+        }
+
+        .public-btns-next {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            width: 70px;
+            height: 60px;
+
+            overflow: hidden;
+        }
+
+        .public-btns-line {
+            height: 45px;
+            width: 1.6px;
+            margin-top: 10px;
+            background-color: #676B73;
+        }
+
+        .public-btns-next-mouse {
+            width: 15px;
+        }
+
+        .public-btns-next-arrows {
+            margin-top: 10px;
+            width: 5px;
+
+            animation: forward 1.4s ease-in-out infinite;
+        }
+
+        .lable {
+            position: sticky;
+            bottom: -400px;
+
+            display: flex;
+            justify-content: space-between;
+            z-index: 9;
+
+            pointer-events: none;
+        }
+
+        .lable img {
+            width: 130px;
+        }
+
+        .lable-play {
+            animation: rightToLeft1 1s ease-out;
+            animation-fill-mode: forwards;
+            pointer-events: none;
+        }
+
+        .lable-replay {
+            animation: rightToLeft2 1s ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes rightToLeft1 {
+            0% {
+                margin-right: -120px;
+            }
+
+            100% {
+                margin-right: 0px;
+            }
+        }
+
+        @keyframes rightToLeft2 {
+            0% {
+                margin-right: -120px;
+            }
+
+            100% {
+                margin-right: 0px;
+            }
+        }
+    </style>
+
+    <!-- 首页 -->
+    <style type="text/css">
+        .home-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            transform: translate3d(-50%, -50%, 0px);
+            width: 100%;
+            z-index: -1;
+        }
+
+        .home-bg-mask {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .home-logo {
+            position: absolute;
+
+            margin-top: 15px;
+            margin-left: 40px;
+        }
+
+        .home-logo img {
+            width: 90px;
+        }
+
+        .home-index {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 0px;
+
+
+        }
+
+        .play {
+            margin-top: -50px;
+            animation: moveDown1 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .replay {
+            margin-top: -50px;
+            animation: moveDown2 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes moveDown1 {
+            0% {
+                margin-top: -50px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        @keyframes moveDown2 {
+            0% {
+                margin-top: -50px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+
+        .home-index-aim img {
+            width: 400px;
+            margin-left: 20px;
+        }
+
+        /* 米哈游介绍视频 按钮 */
+        .home-index-btns-btn {
+            margin-top: 30px;
+            width: 70px;
+            height: 36.98px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            transition: all 500ms;
+        }
+
+        .home-index-btns-btn-start {
+            width: 70px;
+            height: 36.98px;
+
+            background-image: url(datas/home/btn-start.png);
+            background-size: 100%, 100%;
+            background-repeat: no-repeat;
+        }
+
+        .home-index-btns-btn:hover .home-index-btns-btn-start {
+            background-image: url(datas/home/btn-start-hover.png);
+        }
+
+        .home-index-btns-btn:hover b {
+            border-left-color: rgb(0, 98, 255);
+            border-left: 15px solid rgb(0, 98, 255);
+        }
+
+        .home-index-btns-btn b {
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border: 8px solid transparent;
+            border-left-color: rgb(255, 255, 255);
+            border-left: 15px solid #fff;
+            margin-left: 8px;
+        }
+
+        .home-pop {
+            position: sticky;
+            bottom: 0px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100%;
+
+            background-color: black;
+            z-index: 21;
+        }
+
+        .home-pop-video {
+            width: 800px;
+        }
+
+        .home-pop-close {
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            transition: all 0.2s linear;
+
+            cursor: pointer;
+        }
+
+        .home-pop-close:hover {
+            transform: rotate(90deg);
+        }
+    </style>
+
+    <!-- 产品信息 -->
+    <style type="text/css">
+        .product-box {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .product-left {
+            width: 58%;
+            height: 92%;
+            margin-top: 4%;
+        }
+
+        .pl-top {
+            height: 80%;
+            width: 120%;
+        }
+
+        .pl-top-img-box {
+            height: 100%;
+        }
+
+        .pl-top-img {
+            position: relative;
+            height: 100%;
+            z-index: 2;
+
+            transition: all ease-in-out 200ms;
+            opacity: 0.5;
+
+            animation: product-img-show 200ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes product-img-show {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .product-img-play {
+            margin-left: -200px;
+            animation: product_img1 1200ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .product-img-replay {
+            margin-left: -200px;
+            animation: product_img2 1200ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes product_img1 {
+            0% {
+                margin-left: -200px;
+                opacity: 0.5;
+            }
+
+            100% {
+                margin-left: -50px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes product_img2 {
+            0% {
+                margin-left: -200px;
+                opacity: 0.5;
+            }
+
+            100% {
+                margin-left: -50px;
+                opacity: 1;
+            }
+        }
+
+        .pl-top-back {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pl-top-back-img-box {
+            position: relative;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            transform: translateY(-101%);
+        }
+
+        .pl-top-back-img {
+            width: 83%;
+        }
+
+        .pl-top-back-img2-box {
+            display: flex;
+            align-items: flex-end
+        }
+
+        .pl-top-back-img2 {
+            width: 40px;
+            height: 40px;
+            margin-left: -40px;
+        }
+
+        .pl-top-back-block {
+            width: 25px;
+            height: 25px;
+            background: #3778e5;
+            margin-left: 5px;
+        }
+
+        .pl-bottom {
+            height: 20%;
+            width: 100%;
+            z-index: 9;
+        }
+
+        .pl-bottom-box {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .plbb-detail,
+        .plbb-detail-choice {
+            width: 59px;
+            height: 59px;
+            margin-right: 20px;
+
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 2.5px solid rgba(57, 35, 252, 0);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+
+        }
+
+        .plbb-detail:hover,
+        .plbb-detail-choice {
+            border: 2.5px solid #3778e5;
+        }
+
+        .plbbd-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 7px;
+        }
+
+        .product-right {
+            width: 40%;
+            height: 92%;
+            margin-top: 4%;
+
+
+            display: flex;
+            flex-direction: column;
+            align-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .product-right-box {
+            height: 256.7px;
+            margin-top: 25px;
+            margin-right: 90px;
+        }
+
+        .pr-title-small {
+            margin-top: 15px;
+            background-image: linear-gradient(-135deg, #418ae0, #56a0d8, #dc8bc3, #56a0d8, #418ae0, #56a0d8, #dc8bc3, #56a0d8, #418ae0);
+            -webkit-text-fill-color: rgba(0, 0, 0, 0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-size: 200% 100%;
+            animation: masked-animation 3s infinite linear;
+            font-size: 14.8px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            color: #4ea1d9;
+        }
+
+        .pr-title-img-detail {
+            height: 65.43px;
+            object-fit: cover;
+        }
+
+        .pr-title-img,
+        .pr-title-small,
+        .pr-message {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+        }
+
+        .pr-line {
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .pr-line-detail {
+            width: 85px;
+            height: 1px;
+            border-top: 1px solid #242933;
+            transform: rotate(-27deg);
+        }
+
+        .pr-message {
+            font-size: 14px;
+            color: #3d424d;
+        }
+
+
+        .pr-goTo {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .pr-goTo-detail {
+            margin-left: 20px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #3d424d;
+            cursor: pointer;
+        }
+
+        .pr-goTo-detail:hover {
+            color: #3778E5;
+        }
+
+        .pr-out1 {
+            animation: prOut1 800ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .pr-out2 {
+            animation: prOut2 800ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes prOut1 {
+            0% {
+                opacity: 1;
+                margin-right: 0px;
+            }
+
+            100% {
+                opacity: 0;
+                margin-right: -200px;
+            }
+        }
+
+        @keyframes prOut2 {
+            0% {
+                opacity: 1;
+                margin-right: 0px;
+            }
+
+            100% {
+                opacity: 0;
+                margin-right: -200px;
+            }
+        }
+
+        .pr-move1 {
+            margin-right: -200px;
+            animation: prMove1 1200ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .pr-move1re {
+            margin-right: -200px;
+            animation: prMove1re 1200ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes prMove1 {
+            0% {
+                margin-right: -200px;
+                opacity: 0;
+            }
+
+            100% {
+                margin-right: 0px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes prMove1re {
+            0% {
+                margin-right: -200px;
+                opacity: 0;
+            }
+
+            100% {
+                margin-right: 0px;
+                opacity: 1;
+            }
+        }
+
+        .pl-moving {
+            opacity: 1;
+            animation: plMoving 1400ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes plMoving {
+            0% {
+                margin-left: -50px;
+
+                opacity: 1;
+            }
+
+            100% {
+                margin-left: 100px;
+
+                opacity: 0.5;
+            }
+        }
+
+
+        .pl-moving2 {
+            opacity: 1;
+            animation: plMoving2 9000ms ease;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes plMoving2 {
+            0% {
+                margin-left: -50px;
+
+                opacity: 1;
+            }
+
+            100% {
+                margin-left: 50px;
+
+                opacity: 0.8;
+            }
+        }
+
+        .product-start-video-box {
+            position: relative;
+            margin-top: -45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+
+            z-index: 3;
+            opacity: 1;
+        }
+
+        .ps-title {
+            color: #000000;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 5px;
+            margin-left: 160px;
+            overflow: hidden;
+        }
+
+        .ps-btn {
+            pointer-events: all;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 170px;
+            height: 72.5px;
+            background: url(datas/product/icon-play.png) no-repeat 0 0/100% 100%;
+
+            cursor: pointer;
+        }
+
+        .ps-btn-b-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ps-btn-b-box:hover {
+            animation: bMove 1000ms ease-in-out;
+        }
+
+        .ps-btn-b-box b {
+            display: flex;
+            width: 0px;
+            height: 0px;
+            margin-left: 10px;
+            border: 10px solid rgba(0, 0, 0, 0);
+            border-left: 18px solid #3d424d;
+        }
+
+        @keyframes bMove {
+            0% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .ps-showbox1,
+        .ps-showbox2 {
+            overflow: hidden;
+        }
+
+        .ps-showbox1 {
+            margin-left: 50px;
+            margin-top: 50px;
+            width: 170px;
+        }
+
+        .p-btn-disShow {
+            animation: pbds 1000ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes pbds {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <!-- 了解我们 -->
+    <style type="text/css">
+        .about {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-box {
+            width: 50%;
+            height: 100%;
+            z-index: 10;
+
+            margin-top: 0px;
+        }
+
+        .about-box-UpToDown {
+            margin-top: -200px;
+            animation: bud 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .about-box-UpToDown-r {
+            margin-top: -200px;
+            animation: budr 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes bud {
+            0% {
+                margin-top: -200px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        @keyframes budr {
+            0% {
+                margin-top: -200px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        .about-box-DownToUp {
+            margin-top: 200px;
+            animation: bdu 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .about-box-DownToUp-r {
+            margin-top: 200px;
+            animation: bdur 700ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes bdu {
+            0% {
+                margin-top: 200px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        @keyframes bdur {
+            0% {
+                margin-top: 200px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        .about-btns-box {
+            margin-top: 17%;
+            height: 5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-btns {
+            display: flex;
+            padding-right: 1px;
+            padding-left: 1px;
+        }
+
+        .about-btn {
+            width: 109px;
+            height: 19.2px;
+            overflow: hidden;
+        }
+
+        .about-btn-box {
+            position: absolute;
+            width: 109px;
+            height: 19.2px;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .btn-choice,
+        .btn-choice-no {
+            width: 109px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-choice {
+            color: #fff;
+            background-color: #3778e5;
+        }
+
+        .about-btn-m {
+            margin-top: -38.4px;
+            transition: all 0.2s linear;
+        }
+
+        .about-btn-m-h {
+            animation: btnMoveDown 200ms ease-in;
+        }
+
+        @keyframes btnMoveDown {
+            0% {
+                margin-top: -19.2px;
+            }
+
+            100% {
+                margin-top: 0px;
+            }
+        }
+
+        .btn-choice-no {
+            color: #676b73;
+        }
+
+        .about-swiper {
+            margin-top: 15px;
+            height: 75%;
+        }
+
+        .swiper-pan1 {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            animation: toStrong 1.2s linear;
+        }
+
+        @keyframes toStrong {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .pan-title {
+            display: flex;
+            padding-bottom: 20px;
+        }
+
+        .pan-title-1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #242933;
+        }
+
+        .pan-title-2 {
+            font-size: 12px;
+            font-weight: normal;
+            color: #ccc;
+            font-family: HarmonyOS, Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+            margin-top: 19px;
+            margin-left: -10px;
+        }
+
+        .swiper-pan1 {
+            margin-right: 80px;
+        }
+
+        .aim {
+            margin: 10px;
+            background-image: linear-gradient(-135deg, #418ae0, #56a0d8, #dc8bc3, #56a0d8, #418ae0, #56a0d8, #dc8bc3, #56a0d8, #418ae0);
+            -webkit-text-fill-color: rgba(0, 0, 0, 0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-size: 200% 100%;
+            animation: masked-animation 3s infinite linear;
+
+
+            font-size: 40px;
+            letter-spacing: 1px;
+            font-weight: lighter;
+            color: #4ea1d9;
+        }
+
+        @keyframes masked-animation {
+            0% {
+                background-position: 0 -100%;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        .aim-left {
+            margin-left: 40px;
+        }
+
+        .aim-right {
+            text-align: right;
+
+        }
+
+        .aim-left::before {
+            width: 20px;
+            background-image: url(datas/about/aim-left.png);
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 16px;
+            background-repeat: 0;
+            background-size: cover;
+            background-position: center center;
+
+            margin-left: -19px;
+        }
+
+        .aim-right::after {
+            width: 20px;
+            background-image: url(datas/about/aim-right.png);
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 16px;
+            background-repeat: 0;
+            background-size: cover;
+            background-position: center center;
+            margin-top: 35px;
+            margin-left: -19px;
+        }
+
+        .about-detail {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #3d424d;
+            ;
+            line-height: 20px;
+        }
+
+        .about-detail strong {
+            color: rgb(55, 120, 229);
+            font-weight: bold;
+        }
+
+        .about-detail-1,
+        .about-detail-2 {
+            margin-bottom: 10px;
+        }
+
+        .about-idea {
+            margin-top: 45PX;
+            font-size: 13PX;
+            margin-bottom: 20px;
+        }
+
+        .about-idea-title {
+            color: #3778e5;
+            font-weight: bold;
+        }
+
+        .about-idea-detail {
+            margin-top: 5px;
+            color: #3d424d;
+            ;
+        }
+
+        .swiper-pan2,
+        .swiper-pan3 {
+            animation: toStrong 1.2s linear;
+            height: 100%;
+        }
+
+        .pan2 {
+            width: 100%;
+            height: 100%;
+            margin-top: -50px;
+            z-index: 8;
+        }
+
+        .pan2-pic {
+            width: 100%;
+            height: 75%;
+            opacity: 1;
+            transition: all 200ms ease-in-out;
+        }
+
+        .pan2-pic-out {
+            opacity: 0;
+        }
+
+        .pan2-pic-detail {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 7%;
+        }
+
+        .pan2-detail-img {
+            height: 80%;
+        }
+
+        .pan2-detail-title {
+            height: 20%;
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .pan2-swipers {
+            width: 110%;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            margin-left: -57px;
+        }
+
+        .pan2-swipers-detail {
+            width: 80%;
+            height: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            margin-top: -20px;
+        }
+
+        .pan2-btn {
+            width: 5%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pan2-btnLeft,
+        .pan2-btnRight {
+            width: 25px;
+            height: 30px;
+            background: url(datas/about/btn.png) center no-repeat;
+            background-size: 8px;
+            border: 1px solid #868686;
+            cursor: pointer;
+        }
+
+        .pan2-btnLeft:hover,
+        .pan2-btnRight:hover {
+            background: url(datas/about/btn-hover.png) center no-repeat;
+            background-color: #3778E5;
+            border: 1px solid #3778E5;
+        }
+
+        .pan2-btnRight {
+            transform: scaleX(-1);
+        }
+
+        .pan2-btn-dis {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .pan2-swipers-detail-de {
+            display: flex;
+            margin-top: -79px;
+            margin-left: -3400px;
+
+            transition: all 400ms ease-in-out;
+        }
+
+        .pan2-swipers-line {
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid #2c2c2c;
+            margin: 45px 0;
+        }
+
+        .pan2-swipers-choice {
+            position: absolute;
+            width: 89px;
+            height: 103px;
+            margin-top: -97px;
+            margin-left: 360px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fb;
+            z-index: 0;
+        }
+
+        .pan2-swipers-choice::before,
+        .pan2-swipers-choice::after {
+            display: flex;
+            content: "";
+            width: 10px;
+            height: 11px;
+            background-repeat: 0;
+            background-size: 100% 100%;
+            background-position: center center;
+
+            background-image: url(datas/about/history-choice.png);
+        }
+
+        .pan2-swipers-choice::after {
+            transform: scaleX(-1);
+        }
+
+        .de-items {
+            display: flex;
+            z-index: 1;
+        }
+
+        .de-year {
+            width: 100px;
+            height: 100%;
+            background-color: #f8f9fb;
+            font-size: 37px;
+            font-family: HarmonyOS, Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            text-align: center;
+            color: #242933;
+            cursor: default;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 50px;
+        }
+
+        .de-iym-box {
+            width: 232px;
+            height: 100%;
+
+            cursor: pointer;
+
+            transition: all 500ms ease-in-out;
+        }
+
+        .de-iym-box2::before,
+        .de-iym-box2::after {
+            content: "";
+            width: 25px;
+            height: 7px;
+            background-image: url(datas/about/history-line.png);
+        }
+
+        .de-iym-box2::before {
+            margin-right: 10px;
+        }
+
+        .de-iym-box2::after {
+            margin-left: 10px;
+        }
+
+        .de-iym-box2 {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .de-iym-box2-choice {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .de-img-box {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #868686;
+            border-radius: 50%;
+        }
+
+        .de-img-box-choice {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #242933;
+            border-radius: 50%;
+        }
+
+        .de-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .de-img-choice {
+            width: 50px;
+            height: 50px;
+        }
+
+        .de-year-month {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #242933;
+            font-family: HarmonyOS, Arial, Helvetica, sans-serif;
+        }
+
+        .pan3 {
+            height: 70%;
+
+            display: flex;
+
+            margin-top: 25px;
+        }
+
+        .pan3-left {
+            width: 85%;
+        }
+
+        .pan3-show-boxs {
+            height: 85%;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
+            padding: 50px 0;
+            margin-top: -50px;
+        }
+
+        .pan3-show-box-move {
+            width: 200%;
+            height: 100%;
+            display: flex;
+            transition: all 500ms ease-in-out;
+            margin-top: 0px;
+        }
+
+        .move-next {
+            animation: box-next 500ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes box-next {
+            0% {
+                margin-left: 0px;
+            }
+
+            100% {
+                margin-left: -100%;
+            }
+        }
+
+        .move-last {
+            animation: box-last 500ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes box-last {
+            0% {
+                margin-left: -100%;
+            }
+
+            100% {
+                margin-left: 0px;
+            }
+        }
+
+        .move-downToUp1 {
+            transform: translateY(-50px);
+            animation: hid 500ms ease-in-out;
+        }
+
+        .move-upToDown1 {
+            margin-top: -50px;
+            transform: translateY(50px);
+            animation: show 500ms ease-in-out;
+        }
+
+        .move-downToUp2 {
+            transform: translateY(50px);
+            animation: hid 500ms ease-in-out;
+        }
+
+        .move-upToDown2 {
+            margin-top: 50px;
+            transform: translateY(-50px);
+            animation: show 500ms ease-in-out;
+        }
+
+        @keyframes hid {
+            0% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0.0;
+            }
+        }
+
+        @keyframes show {
+            0% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .pan3-show-box {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: flex-start;
+        }
+
+        .pan3-show {
+            width: 40%;
+            height: 25%;
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+        }
+
+        .pan3-show {
+            width: 40%;
+            height: 25%;
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pan3-show::before,
+        .pan3-show::after {
+            content: "";
+            width: 21px;
+            height: 47.25px;
+            ;
+            background-image: url(datas/about/feather.png);
+            background-repeat: 0;
+            background-size: cover;
+        }
+
+        .pan3-show::after {
+            transform: scaleX(-1);
+        }
+
+        .pan3-show-detail {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        .pan3-show-more {
+            width: 40%;
+            height: 25%;
+        }
+
+        .detail-title {
+            font-size: 14PX;
+            font-weight: bold;
+            color: #242933;
+            margin-bottom: 0.08rem;
+        }
+
+        .detail-origin {
+            color: #676b73;
+            font-size: 12px;
+        }
+
+        .pan3-show-btn {
+            height: 15%;
+            margin-top: -50px;
+        }
+
+        .pan3-right {
+            width: 15%;
+
+            height: 100%;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .right-line {
+            width: 1.5px;
+            height: 100%;
+            background-color: #9e9e9e;
+            margin-top: 12px;
+        }
+
+        .right-slider {
+            position: absolute;
+            width: 2.5px;
+            height: 16px;
+            background-color: #3778E5;
+            margin-top: 19px;
+            margin-left: -0.5px;
+            transition: all 0.2s linear;
+        }
+
+        .right-choice {
+            width: 65%;
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-around;
+            align-items: center;
+
+            font-size: 14px;
+            text-align: center;
+            color: #9e9e9e;
+            font-family: HarmonyOS, Arial, Helvetica, sans-serif;
+        }
+
+        .hq-choice-no:hover,
+        .hq-choice {
+            color: #3778e5;
+            font-weight: bold;
+        }
+
+        .hq-choice-detail {
+            cursor: pointer;
+        }
+
+        .pan3-show-btn {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .pan3-show-btns {
+            width: 60px;
+            display: flex;
+            justify-content: space-between;
+            padding: 13px;
+        }
+
+        .pan3-show-btn-left,
+        .pan3-show-btn-right {
+            width: 25px;
+            height: 30px;
+            background: url(datas/about/btn.png) center no-repeat;
+            background-size: 8px;
+            border: 1px solid #868686;
+            cursor: pointer;
+        }
+
+        .pan3-show-btn-right {
+            transform: scaleX(-1);
+        }
+
+        .pan3-show-btn-left:hover,
+        .pan3-show-btn-right:hover {
+            background: url(datas/about/btn-hover.png) center no-repeat;
+            background-color: #3778E5;
+            border: 1px solid #3778E5;
+        }
+
+        .pan3-show-btn-dis {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    </style>
+
+    <!-- 加入我们 -->
+    <style type="text/css">
+        .join-top {
+            pointer-events: none;
+        }
+
+        .join-top-box {
+            padding-top: 3.8%;
+            padding-left: 15%;
+
+            display: flex;
+        }
+
+        .join-top-img {
+            width: 805px;
+            height: 167.98px;
+
+            z-index: 2;
+        }
+
+        .join-top-img1 {
+            width: 174px;
+            height: 67px;
+
+            position: relative;
+            margin-left: -920px;
+            z-index: 4;
+        }
+
+        .join-top-img2 {
+            width: 246px;
+            height: 15.6px;
+
+            position: relative;
+            margin-left: -100px;
+            margin-top: 130px;
+            z-index: 4;
+        }
+
+        .join-top-img3 {
+            width: 251px;
+            height: 41.64px;
+
+            position: relative;
+            margin-left: 390px;
+            margin-top: 50px;
+            z-index: 4;
+        }
+
+        .join-top-img4 {
+            width: 73px;
+            height: 20.81px;
+
+            position: relative;
+            margin-left: -300px;
+            margin-top: 155px;
+            z-index: 4;
+        }
+
+        .join-top-box2 {
+            width: 805px;
+            height: 167.98px;
+            overflow: hidden;
+            position: relative;
+            margin-left: 257px;
+            margin-top: -176px;
+            display: flex;
+        }
+
+        .join-top-img5 {
+            width: 435.2px;
+
+            position: relative;
+            margin-left: -70px;
+            z-index: 3;
+
+
+            transition: all ease-in-out;
+        }
+
+        .join-top-img6 {
+            width: 738px;
+
+            position: relative;
+            margin-left: -400px;
+            z-index: 2;
+        }
+
+        .join-bottom {
+            height: 70%;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .join-bottom-box {
+            width: 60%;
+            height: 80%;
+
+            display: flex;
+        }
+
+        .join-bottom-left {
+            width: 20%;
+
+            display: flex;
+            padding-right: 5px;
+        }
+
+        .join-bottom-right {
+            width: 70%;
+            margin-left: -6px;
+
+            display: flex;
+            align-items: flex-end;
+
+        }
+
+        .jbl-left {
+            width: 99%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end
+        }
+
+        .jbl-left-detail {
+            font-size: 14.3px;
+            font-weight: bold;
+            color: #3d424d;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 90px;
+            text-align: right;
+
+            transition: all 300ms ease-in-out;
+            transform-origin: right center;
+        }
+
+        .jbl-left-detail-choice,
+        .jbl-left-detail:hover {
+            transform: scale(1.5);
+        }
+
+        .jblr-slid {
+            width: 4px;
+            height: 25px;
+            border-radius: 2px;
+            background-color: #3778E5;
+
+            margin-left: -2px;
+            margin-top: 90px;
+            transition: all 300ms ease-in-out;
+        }
+
+        .jbr-box1,
+        .jbr-box2 {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: showJoinBox 500ms ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes showJoinBox {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .jbl-right {
+            width: 0.5px;
+            background-color: #000000;
+        }
+
+
+        .jbr-top {
+            height: 10%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .jbrt-box1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            width: 100px;
+            height: 19.2px;
+            color: #fff;
+            background: #3778e5;
+
+            cursor: pointer;
+        }
+
+        .jbrt-box {
+            width: 100px;
+            height: 19.2px;
+
+            overflow: hidden;
+
+        }
+
+        .jbrt-box-move {
+            position: relative;
+            width: 100px;
+            height: 19.2px;
+            margin-left: -100px;
+
+            cursor: pointer;
+        }
+
+        .jbrt-box-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            width: 100px;
+            height: 57.6px;
+
+            margin-top: -38.4px;
+            transition: all 0.2s linear;
+        }
+
+        .jbrtbd {
+            width: 100px;
+            height: 19.2px;
+            color: #fff;
+            background: #3778e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .jbrtbd-choice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 19.2px;
+            color: #676B73;
+            border-right: #676B73 solid 2px;
+        }
+
+        .jbr-mid {
+            height: 80%;
+            display: flex;
+            flex-wrap: wrap
+        }
+
+        .jbr-mid-item {
+            width: 33%;
+            height: 119.2px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .jbrmi-img2 {
+            width: 36px;
+            height: 36px;
+        }
+
+        .jbrmi-img1,
+        .jbrmi-img-box {
+            width: 36px;
+            height: 36px;
+        }
+
+        .jbrmi-img-box {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .jbrmi-img1 {
+            margin-top: -36px;
+        }
+
+        .jbrmi-messages {
+            display: flex;
+            margin-top: 10px;
+            font-size: 13.5px;
+        }
+
+        .jbrmi-num {
+            font-size: 12px;
+            background-color: #a1d6e4;
+            color: #fff;
+            padding: 1px;
+            padding-left: 3px;
+            padding-right: 3px;
+            margin-left: 4px;
+            border-radius: 2px;
+        }
+
+        .jbrmi-text {
+            color: #3d424d;
+        }
+
+        .jbr-bottom {
+            height: 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .jbr-bottom-btn {
+            font-size: 14px;
+            color: #000000;
+
+            width: 100px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(datas/join/btn-back.png) no-repeat center center/99% 100%;
+            cursor: pointer;
+        }
+
+        .jbr-bottom-btn:hover {
+            color: #3778e5;
+            background: url(datas/join/btn-back-on.png) no-repeat center center/99% 100%;
+        }
+
+        .jbr-box2 {
+            height: 90%;
+        }
+
+        .jbr-detail {
+            width: 100%;
+            height: 25%;
+            overflow: hidden;
+        }
+
+        .jbr-detail-1 {
+            width: 100%;
+            height: 99%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            border-bottom: rgba(44, 44, 44, .16) solid 2px;
+        }
+
+        .jbrd-num {
+            height: 65px;
+        }
+
+        .jbrd-messages {
+            width: 50%;
+            height: 100%;
+            margin-left: 35px;
+        }
+
+        .jbrd-message1 {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 14.8px;
+            color: #3d424d;
+        }
+
+        .jbrd-message2 {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #676B73;
+        }
+
+        .jbrd-img-box {
+            margin-left: 20px;
+        }
+
+        .jbrd-img-box img {
+            width: 154px;
+        }
+
+        .jbr-detail-2 {
+            width: 200%;
+            height: 100%;
+            position: relative;
+            margin-top: -103px;
+            margin-left: -100%;
+            display: flex;
+            transition: all 250ms ease-in-out;
+        }
+
+        .jbr-detail-2:hover {
+            margin-left: 0%;
+        }
+
+        .jbrd2-boxs {
+            width: 50%;
+            display: flex;
+            background-color: #ebeff5;
+            justify-content: space-around;
+            transition: all 500ms ease-in-out;
+
+            z-index: 2;
+        }
+
+        .jbrd2b-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #3778e5;
+            margin-top: 10px;
+        }
+
+        .jbrd2b-messages {
+            margin-top: 5px;
+            font-size: 12PX;
+            color: #676B73;
+        }
+
+        .jbrd2b-img1 {
+            position: relative;
+            height: 100%;
+            margin-left: -50%;
+            z-index: 4;
+        }
+
+        .jbrd2b-img2 {
+            position: relative;
+            height: 15px;
+            margin-top: 6.5%;
+            margin-left: 35%;
+            z-index: 4;
+        }
+    </style>
+
+    <!-- 新闻动态 -->
+    <style type="text/css">
+        .news {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .news-boxs {
+            width: 60%;
+            height: 60%;
+            display: flex;
+        }
+
+        .news-box1 {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            z-index: 3;
+        }
+
+        .news-b1-left {
+            width: 30%;
+            height: 100%;
+            margin-right: 20px;
+        }
+
+        .news-b1-right {
+            width: 70%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .news-b1r-img-box {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .news-b1r-img {
+            width: 100%;
+            transition: all 400ms ease-in-out;
+            transform-origin: center;
+        }
+
+        .news-b1r-img-on {
+            transform: scale(1.15);
+        }
+
+        .news-b1-top,
+        .news-b1-mid,
+        .news-b1-bottom,
+        .news-btns {
+            width: 100%;
+        }
+
+        .news-b1-top {
+            height: 25%;
+
+            color: #DEE1E6;
+        }
+
+        .news-b1t-time1 {
+            font-size: 56.5px;
+        }
+
+        .news-b1t-time2 {
+            font-size: 22.3px;
+        }
+
+        .news-b1-mid {
+            margin-top: 50px;
+            height: 35%;
+
+            margin-left: -100px;
+            opacity: 0.3;
+            animation: midShow 800ms ease-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes midShow {
+            0% {
+                margin-left: -100px;
+                opacity: 0.3;
+            }
+
+            100% {
+                margin-left: 0px;
+                opacity: 1;
+            }
+        }
+
+        .news-b1-mid-next {
+            animation: midNext 800ms ease-out;
+        }
+
+        @keyframes midNext {
+            0% {
+                margin-left: 0px;
+                opacity: 1;
+            }
+
+            100% {
+                margin-left: 300px;
+                opacity: 0.4;
+            }
+
+        }
+
+
+
+        .news-b1m-title {
+            overflow: hidden;
+            font-weight: bold;
+            font-size: 17px;
+            color: #242933;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            transition: all 500ms ease-in-out;
+        }
+
+        .news-b1m-title-on {
+            color: #3778E5;
+        }
+
+        .news-b1m-messages {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #676B73;
+        }
+
+        .news-b1-bottom {
+            height: 10%;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+        }
+
+        .news-b1-bottom img {
+            width: 50px;
+        }
+
+        .news-b1b-text {
+            color: #3778E5;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 15px;
+
+            overflow: hidden;
+            padding-right: 5px;
+        }
+
+        .news-b1b-text-line {
+            height: 2px;
+            width: 100%;
+            background-color: #3778E5;
+            transition: all 400ms ease-in-out;
+            margin-left: -100%;
+        }
+
+        .news-b1b-text-line-on {
+            margin-left: 0%;
+        }
+
+        .news-btns {
+            height: 20%;
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .news-btn {
+            margin-right: 8px;
+            width: 50px;
+            height: 50px;
+            color: #DEE1E6;
+            border: 1px solid #DEE1E6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 19px;
+            transition: all 200ms ease-in-out;
+            transform-origin: top center;
+            cursor: pointer;
+        }
+
+        .news-btn:hover,
+        .news-btn-choice {
+            color: #676b73;
+            border: 1px solid #676b73;
+            transform: scale(1.15);
+        }
+
+        .news-box2 {
+            position: relative;
+            width: 60%;
+            height: 100%;
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+            margin-left: -350px;
+            overflow: hidden;
+            z-index: 1;
+
+
+        }
+
+        .news-b2-img {
+            height: 100%;
+        }
+
+        .news-box3 {
+            position: relative;
+            width: 60%;
+            height: 100%;
+
+            margin-left: -516px;
+            z-index: 2;
+            background: url(datas/news/news-back.png) repeat;
+            background-color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-b3-img1 {
+            width: 209px;
+            margin-top: 50px;
+            margin-left: 250px;
+        }
+
+        .news-b3-img2 {
+            width: 74px;
+            margin-top: 367px;
+            margin-left: 410px;
+        }
+
+        .news-box4 {
+            position: relative;
+
+            width: 870px;
+            height: 325px;
+            margin-left: -1030px;
+            margin-top: -5px;
+
+            z-index: 6;
+
+            cursor: pointer;
+        }
+
+        .new-lookMore {
+            font-size: 14px;
+            color: #676b73;
+
+            width: 130px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(datas/news/news-btn.png) no-repeat center center/99% 100%;
+            cursor: pointer;
+
+            margin-top: 50px;
+            margin-left: 400px;
+        }
+
+        .new-lookMore:hover {
+            color: rgb(56, 120, 229);
+            background: url(datas/news/news-btn-on.png) no-repeat center center/99% 100%;
+        }
+    </style>
+
+    <!-- 底部 -->
+    <style type="text/css">
+        .bottom img{
+            margin-top: 120px;
+            margin-left: 200px;
+        }
+
+        .signature {
+            margin-top: -120px;
+            margin-left: 700px;
+            font-family: '华文新魏', Courier, monospace;
+            color: #4ea1d9;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 首页界面 -->
+        <div class="home">
+            <!-- 背景视频 -->
+            <div class="home-bg">
+                <video class="home-bg-video" src="datas/home/video-bg.mp4" poster="datas/home/video-bg-poster.png"
+                    autoplay="autoplay" loop="loop" muted="muted"></video>
+                <div class="home-bg-mask"></div>
+            </div>
+
+            <!-- 米哈游logo -->
+            <div class="home-logo">
+                <img src="datas/home/logo.png">
+            </div>
+
+            <!-- 中间区域 -->
+            <div class="home-index" id="home-index">
+
+                <!-- 米哈游的座右铭 -->
+                <div class="home-index-aim">
+                    <img src="datas/home/aim.png">
+                </div>
+
+                <!-- 按钮区域 -->
+                <div class="home-index-btns">
+
+                    <!-- 米哈游介绍视频 按钮 -->
+                    <div class="home-index-btns-btn" v-on:click="showPop('datas/home/video-start.mp4')">
+                        <div class="home-index-btns-btn-start"></div>
+                        <b></b>
+                    </div>
+
+                    <!-- 动态 下一板块按钮 -->
+                    <div class="btns-next" v-on:click="nextPage()">
+                        <img class="btns-next-mouse" src="datas/home/btn-mouse.svg">
+                        <img class="btns-next-arrows" src="datas/home/btn-arrows.svg">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- 产品界面 -->
+        <div class="product" id="productBox">
+            <div class="product-box">
+                <div class="product-left">
+                    <div class="pl-top">
+                        <div class="pl-top-img-box">
+                            <img id="pl-top-img" class="pl-top-img"
+                                :src="'datas/product/img-' + products_choice + '.png'">
+                            <div class="pl-top-back-img-box">
+                                <img class="pl-top-back-img"
+                                    :src="'datas/product/img-' + products_choice + '-back.png'">
+                                <div class="pl-top-back-img2-box">
+                                    <img class="pl-top-back-img2" src="datas/product/img-back.png">
+                                </div>
+                                <div class="pl-top-back-block"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="pl-bottom">
+                        <div class="pl-bottom-box">
+                            <div v-for="(product, index) in products_list" :key="index"
+                                v-on:click="chocieProduct(product)">
+                                <div class="plbb-detail" v-show="product.indexOf(products_choice)">
+                                    <img class="plbbd-img" :src="'datas/product/icon-' + product + '.png'">
+                                </div>
+                                <div class="plbb-detail-choice" v-show="!product.indexOf(products_choice)">
+                                    <img class="plbbd-img" :src="'datas/product/icon-' + product + '.png'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-right">
+                    <div class="product-right-box">
+                        <div id="pr-titles">
+                            <div class="pr-title-img">
+                                <img class="pr-title-img-detail"
+                                    :src="'datas/product/title-' + products_choice + '.png'">
+                            </div>
+                            <div class="pr-title-small">
+                                {{products_dict[products_choice]["title"]}}
+                            </div>
+                        </div>
+
+
+                        <div id="pr-line" class="pr-line">
+                            <div class="pr-line-detail"></div>
+                        </div>
+
+                        <div id="pr-messages" class="pr-messages">
+                            <div class="pr-message"
+                                v-for="(message, index) in products_dict[products_choice]['messages']" :key="index">
+                                {{message}}
+                            </div>
+                        </div>
+
+                        <div id="pr-goTo" class="pr-goTo">
+                            <div class="pr-goTo-detail" v-on:click="goToOtherWeb(products_choice, 0)">
+                                游戏官网
+                            </div>
+                            <div class="pr-goTo-detail" v-on:click="goToOtherWeb(products_choice, 1)">
+                                微博
+                            </div>
+                            <div class="pr-goTo-detail">
+                                微信公众号
+                            </div>
+                            <div class="pr-goTo-detail" v-on:click="goToOtherWeb(products_choice, 2)">
+                                Bilibili
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="product-start-video-box" class="product-start-video-box">
+                <div class="ps-showbox1">
+                    <div class="ps-btn" V-on:click="showPop('datas/product/video-' + products_choice + '.mp4')">
+                        <div class="ps-btn-b-box">
+                            <b></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-title">
+                    intro video
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 了解我们界面 -->
+        <div class="about">
+            <div class="about-box">
+                <div class="about-btns-box">
+                    <div></div>
+                    <div class="about-btns">
+                        <div class="about-btn" v-for="(btn, index) in about_btns" :key="index">
+                            <div class="about-btn-box" :id="'box-' + index" v-on:click="choiceAbout(index)"></div>
+                            <div class="about-btn-m" :id="'aboutBtn' + index"> <!-- onmouseover="aboutBtn" -->
+                                <div v-show="index != about_btn_choice">
+                                    <div class="btn-choice-no">{{btn}}</div>
+                                    <div class="btn-choice">{{btn}}</div>
+                                    <div class="btn-choice-no">{{btn}}</div>
+                                </div>
+                            </div>
+                            <div v-show="index == about_btn_choice">
+                                <div class="btn-choice-no">{{btn}}</div>
+                                <div class="btn-choice-no">{{btn}}</div>
+                                <div class="btn-choice">{{btn}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="about-swiper">
+                    <div class="swiper-pan1" v-show="about_btn_choice == 0">
+                        <div class="pan-title">
+                            <div class="pan-title-1">我们的愿景</div>
+                            <div class="pan-title-2">OUR VISON</div>
+                        </div>
+
+                        <div class="aim">
+                            <div class="aim-d">
+                                <div class="aim-left">
+                                    2030年，打造出全球十亿人
+                                </div>
+                                <div class="aim-right">
+                                    愿意生活在其中的虚拟世界。
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="pan-title">
+                            <div class="pan-title-1">关于米哈游</div>
+                            <div class="pan-title-2">ABOUT MIHOYO</div>
+                        </div>
+
+                        <div class="about-detail">
+                            <div class="about-detail-1">
+                                米哈游成立于2011年，致力于为用户提供美好的、超出预期的产品与内容。米哈游陆续推出了多款高品质人气产品，包括《崩坏学园2》、《崩坏3》、《未定事件簿》、《原神》、《崩坏：星穹铁道》，动态桌面软件《人工桌面》以及社区产品《米游社》，并围绕原创IP打造了动画、音乐及周边等多元产品。即将上线的《绝区零》等同样受到全球玩家广泛关注。
+                            </div>
+                            <div class="about-detail-2">
+                                秉承着“
+                                <strong>
+                                    技术宅拯救世界
+                                </strong>
+                                ”的使命，米哈游始终致力于技术研发、探索前沿科技，在卡通渲染、人工智能、云游戏技术等领域积累了先进的技术能力。
+                            </div>
+
+                            <div class="about-detail-3">
+                                米哈游总部位于中国上海，并在新加坡、美国、加拿大、日本、韩国等国家和地区进行全球化布局。目前，公司员工5,000人，来自世界知名游戏/互联网/科技公司。
+                            </div>
+                        </div>
+
+                        <div class="about-idea">
+                            <div class="about-idea-title">
+                                米哈游的研发理念
+                            </div>
+                            <div class="about-idea-detail">
+                                Something New | Something Exciting | Something Out of Imagination
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-pan2" v-show="about_btn_choice == 1">
+                        <div class="pan-title">
+                            <div class="pan-title-1">发展历程</div>
+                            <div class="pan-title-2">Milestones</div>
+                        </div>
+
+                        <div class="pan2">
+                            <div class="pan2-pic">
+                                <div class="pan2-pic-detail">
+                                    <img class="pan2-detail-img"
+                                        :src="'datas/about/history-' + history_year + '.' + history_month + '-02.png'">
+                                    <div class="pan2-detail-title">
+                                        {{historys[history_year][history_month]}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pan2-swipers">
+                                <div class="pan2-btn">
+                                    <div class="pan2-btnLeft" v-on:click="lastHistory"></div>
+                                </div>
+                                <div class="pan2-swipers-detail">
+                                    <div class="pan2-swipers-line"></div>
+                                    <div class="pan2-swipers-choice">
+
+                                    </div>
+                                    <div class="pan2-swipers-detail-de">
+                                        <div class="de-items" v-for="(month, year) in historys" :key="year">
+                                            <div class="de-year">
+                                                {{year}}
+                                            </div>
+                                            <div class="de-iym-box" v-for="(items, m) in month" :key="m">
+                                                <div class="de-iym-box2" :id="'imgBox2-' + year + '-' + m">
+                                                    <div class="de-img-box" :id="'imgBox-' + year + '-' + m">
+                                                        <img class="de-img" :id="'img-' + year + '-' + m"
+                                                            :src="'datas/about/history-' + year + '.' + m + '-01.png'">
+                                                    </div>
+                                                </div>
+
+                                                <div class="de-year-month">
+                                                    {{year}}.{{m}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="de-items">
+                                            <div class="de-iym-box">
+                                                <div class="de-iym-box2">
+                                                    <div class="de-img-box">
+                                                        <img class="de-img" src="datas/about/history-more.png">
+                                                    </div>
+                                                </div>
+
+                                                <div class="de-year-month">
+                                                    敬请期待
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pan2-btn">
+                                    <div class="pan2-btnRight pan2-btn-dis" v-on:click="nextHistory"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-pan3" v-show="about_btn_choice == 2">
+                        <div class="pan-title">
+                            <div class="pan-title-1">荣誉资质</div>
+                            <div class="pan-title-2">Honors & Awards</div>
+                        </div>
+
+                        <div class="pan3">
+                            <div class="pan3-left">
+                                <div class="pan3-show-boxs">
+                                    <div class="pan3-show-box-move">
+                                        <div class="pan3-show-box">
+                                            <div class="pan3-show"
+                                                v-for="(items, index) in honor_qualifications[honor_qualifications_choice].slice(0,8)"
+                                                :key="index">
+                                                <div class="pan3-show-detail">
+                                                    <div class="detail-title">
+                                                        {{items[0]}}
+                                                    </div>
+                                                    <div class="detail-origin">
+                                                        {{items[1]}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pan3-show-more"
+                                                v-show="!isShowMore((honor_qualifications[honor_qualifications_choice].len))">
+                                            </div>
+                                        </div>
+                                        <div class="pan3-show-box"><!-- v-show="honor_qualifications.len > 8" -->
+                                            <div class="pan3-show"
+                                                v-for="(items, index) in honor_qualifications[honor_qualifications_choice].slice(8)"
+                                                :key="index">
+                                                <div class="pan3-show-detail">
+                                                    <div class="detail-title">
+                                                        {{items[0]}}
+                                                    </div>
+                                                    <div class="detail-origin">
+                                                        {{items[1]}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pan3-show-more"
+                                                v-show="!isShowMore((honor_qualifications[honor_qualifications_choice].len))">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pan3-show-btn">
+                                    <div class="pan3-show-btns" v-show="isMoreE()">
+                                        <div class="pan3-show-btn-left pan3-show-btn-dis" v-on:click="lastMove">
+
+                                        </div>
+                                        <div class="pan3-show-btn-right" v-on:click="nextMove">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pan3-right">
+                                <div class="right-line">
+
+                                </div>
+
+                                <div class="right-slider" id="slider">
+
+                                </div>
+
+                                <div class="right-choice">
+                                    <div class="hq-choice-detail" v-for="(items, index) in honor_qualifications"
+                                        :key="index">
+                                        <div class="hq-choice-no" v-show="index != honor_qualifications_choice"
+                                            v-on:click="hqChoice(index)">
+                                            {{index}}
+                                        </div>
+                                        <div class="hq-choice" v-show="index == honor_qualifications_choice">
+                                            {{index}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 加入我们界面 -->
+        <div class="join" id="joinBigBox">
+            <div class="join-top">
+                <div class="join-top-box">
+                    <img class="join-top-img" src="datas/join/join-title-background.png">
+                    <img class="join-top-img1" src="datas/join/join-title-1.png">
+                    <img class="join-top-img2" src="datas/join/join-title-2.png">
+                    <img class="join-top-img3" src="datas/join/join-title-3.png">
+                    <img class="join-top-img4" src="datas/join/join-title-4.png">
+                </div>
+                <div class="join-top-box2">
+                    <img class="join-top-img5" id="join-top-img5" src="datas/join/join-title-b1.png">
+                    <img class="join-top-img6" id="join-top-img6" src="datas/join/join-title-b2.png">
+                </div>
+            </div>
+
+            <div class="join-bottom">
+                <div class="join-bottom-box">
+                    <div class="join-bottom-left">
+                        <div class="jbl-left">
+                            <div class="jbl-left-detail jbl-left-detail-choice" id="join_choice_0"
+                                v-on:click="choiceJoin(0)">
+                                热招岗位
+                            </div>
+                            <div class="jbl-left-detail" id="join_choice_1" v-on:click="choiceJoin(1)">
+                                在米哈游工作
+                            </div>
+                        </div>
+                        <div class="jbl-right">
+                            <div class="jblr-slid" id="jblr-slid"></div>
+                        </div>
+                    </div>
+                    <div class="join-bottom-right">
+                        <div class="jbr-box1" v-show="join_choice==0">
+                            <div class="jbr-top">
+                                <div class="jbrt-box1">
+                                    社会招聘
+                                </div>
+                                <div class="jbrt-box">
+                                    <div class="jbrt-box-detail" id="jbrt-box-detail">
+                                        <div class="jbrtbd-choice">校园招聘</div>
+                                        <div class="jbrtbd">校园招聘</div>
+                                        <div class="jbrtbd-choice">校园招聘</div>
+                                    </div>
+                                </div>
+                                <div class="jbrt-box-move" id="jbrt-box-move"
+                                    v-on:click="goToOtherWeb2('https://join.mihoyo.com/#/campus')"></div>
+                            </div>
+                            <div class="jbr-mid">
+                                <div class="jbr-mid-item" v-for="(item, index) in join_dict" :key="index"
+                                    v-on:click="goToOtherWeb2(item[3])">
+                                    <div class="jbrmi-img-box">
+                                        <img class="jbrmi-img2" id="" :src="'datas/join/' + item[2] + '-click.png'">
+                                        <img class="jbrmi-img1" id="" :src="'datas/join/' + item[2] + '.png'">
+                                    </div>
+
+                                    <div class="jbrmi-messages">
+                                        <div class="jbrmi-text">{{item[0]}}</div>
+                                        <div class="jbrmi-num">{{item[1]}}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="jbr-bottom">
+                                <div class="jbr-bottom-btn"
+                                    v-on:click="goToOtherWeb2('https://jobs.mihoyo.com/#/jobs')">全部职位</div>
+                            </div>
+                        </div>
+
+                        <div class="jbr-box2" v-show="join_choice==1">
+                            <div class="jbr-detail" id="jbrd-1">
+                                <div class="jbr-detail-1">
+                                    <img class="jbrd-num" src="datas/join/01.png"></img>
+                                    <div class="jbrd-messages">
+                                        <div class="jbrd-message1">
+                                            技术宅拯救世界
+                                        </div>
+                                        <div class="jbrd-message2">
+                                            技术密集型公司
+                                            精英化团队理念
+                                            面向未来的产品
+                                        </div>
+                                    </div>
+                                    <div class="jbrd-img-box">
+                                        <img src="datas/join/direction.png">
+                                    </div>
+                                </div>
+
+                                <div class="jbr-detail-2" id="jbrd-1-m">
+                                    <div class="jbrd2-boxs">
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                技术密集型公司
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                行业领先卡通渲染、人工智能、 <br>云游戏技术 <br>
+
+                                                不断探索前沿技术，是一件很酷的事情
+                                            </div>
+                                        </div>
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                精英化团队理念
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                高人才密度 <br>
+
+                                                全球化团队 <br>
+
+                                                与优秀的人在一起，做卓越的事 <br>情，获得最好的回报
+                                            </div>
+                                        </div>
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                面向未来的产品
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                始终敢为人先 <br>
+
+                                                致力于为用户提供美好的、超出想 <br>象的产品与体验
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <img class="jbrd2b-img1" src="datas/join/pop-1.png">
+                                    <img class="jbrd2b-img2" src="datas/join/pop-2.png">
+                                </div>
+                            </div>
+                            <div class="jbr-detail">
+                                <div class="jbr-detail-1">
+                                    <img class="jbrd-num" src="datas/join/02.png"></img>
+                                    <div class="jbrd-messages">
+                                        <div class="jbrd-message1">
+                                            价值观
+                                        </div>
+                                        <div class="jbrd-message2">
+                                            说到做到
+                                            有话直说
+                                            只认功劳
+                                            追求极致
+                                        </div>
+                                    </div>
+                                    <div class="jbrd-img-box">
+                                        <!-- <img src="datas/join/direction.png"> -->
+                                        <div style="width: 154px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jbr-detail" id="jbrd-3">
+                                <div class="jbr-detail-1">
+                                    <img class="jbrd-num" src="datas/join/03.png"></img>
+                                    <div class="jbrd-messages">
+                                        <div class="jbrd-message1">
+                                            快乐工作用心成长
+                                        </div>
+                                        <div class="jbrd-message2">
+                                            体系化培训助力成长
+                                            简单纯粹的工作氛围
+                                        </div>
+                                    </div>
+                                    <div class="jbrd-img-box">
+                                        <img src="datas/join/direction.png">
+                                    </div>
+                                </div>
+                                <div class="jbr-detail-2" id="jbrd-3-m">
+                                    <div class="jbrd2-boxs">
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                体系化培训助力成长
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                社招新人培训、校招新人培训 <br>
+                                                【阿蒙森计划】Leader培训 <br>
+                                                系列通用&专业课程/沙龙
+                                            </div>
+                                        </div>
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                简单纯粹的工作氛围
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                扁平架构、决策高效 <br>
+                                                问题驱动、务实专注 <br>
+                                                让你在追求极致的路上更轻松愉快
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img class="jbrd2b-img1" src="datas/join/pop-1.png">
+                                    <img class="jbrd2b-img2" src="datas/join/pop-2.png">
+                                </div>
+                            </div>
+                            <div class="jbr-detail" id="jbrd-3">
+                                <div class="jbr-detail-1">
+                                    <img class="jbrd-num" src="datas/join/04.png"></img>
+                                    <div class="jbrd-messages">
+                                        <div class="jbrd-message1">
+                                            优秀的薪资福利
+                                        </div>
+                                        <div class="jbrd-message2">
+                                            诚意满满薪金回报
+                                            丰富年节福利
+                                            贴心关爱员工健康
+                                        </div>
+                                    </div>
+                                    <div class="jbrd-img-box">
+                                        <img src="datas/join/direction.png">
+                                    </div>
+                                </div>
+                                <div class="jbr-detail-2" id="jbrd-4-m">
+                                    <div class="jbrd2-boxs">
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                诚意满满薪金回报
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                行业领先的薪酬 <br>
+                                                每年两次的薪酬回顾机会 <br>
+                                                优秀的你值得有竞争力的回报
+                                            </div>
+                                        </div>
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                丰富年节福利
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                年会豪礼、多样周边、节日礼品 <br>
+                                                免费晚餐、零食与下午茶 <br>
+                                                360度关爱你的生活
+                                            </div>
+                                        </div>
+                                        <div class="jbrd2-box">
+                                            <div class="jbrd2b-title">
+                                                贴心关爱员工健康
+                                            </div>
+                                            <div class="jbrd2b-messages">
+                                                六险二金、家庭体检 <br>
+                                                EAP心理咨询、10天起步的年假 <br>
+                                                工作与生活平衡， <br>
+                                                让你在前进路上后顾无忧
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img class="jbrd2b-img1" src="datas/join/pop-1.png">
+                                    <img class="jbrd2b-img2" src="datas/join/pop-2.png">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新闻动态 -->
+        <div class="news">
+            <div class="news-boxs">
+                <div class="news-box1">
+                    <div class="news-b1-left">
+                        <div class="news-b1-top">
+                            <div class="news-b1t-time1">{{news_dict[news_choice-1][0]}}</div>
+                            <div class="news-b1t-time2">{{news_dict[news_choice-1][1]}}</div>
+                        </div>
+                        <div class="news-b1-mid" id="news-b1-mid">
+                            <div class="news-b1m-title" id="news-b1m-title">
+                                {{news_dict[news_choice-1][2]}}
+                            </div>
+                            <div class="news-b1m-messages">
+                                {{news_dict[news_choice-1][3]}}
+                            </div>
+                        </div>
+                        <div class="news-b1-bottom">
+                            <div class="news-b1b-text">
+                                READ MORE
+                                <div class="news-b1b-text-line" id="news-b1b-text-line"></div>
+                            </div>
+                            <img src="datas/news/bews-btn-goto.png">
+                        </div>
+                        <div class="news-btns">
+                            <div id="news-btn1" class="news-btn news-btn-choice" v-on:click="changeNews(1)">1</div>
+                            <div id="news-btn2" class="news-btn" v-on:click="changeNews(2)">2</div>
+                            <div id="news-btn3" class="news-btn" v-on:click="changeNews(3)">3</div>
+                        </div>
+
+                        <div class="new-lookMore">查看更多新闻</div>
+                    </div>
+                    <div class="news-b1-right">
+                        <div class="news-b1r-img-box">
+                            <img class="news-b1r-img" id="news-b1r-img"
+                                :src="'datas/news/news-' + news_choice + '.png'">
+                        </div>
+                    </div>
+                </div>
+                <div class="news-box2">
+                    <img class="news-b2-img" :src="'datas/news/news-' + news_choice + '.png'">
+                </div>
+                <div class="news-box3">
+                    <img class="news-b3-img1" src="datas/news/news-sign-1.png">
+                    <img class="news-b3-img2" src="datas/news/news-sign-2.png">
+                </div>
+            </div>
+            <div class="news-box4" id="news-box4">
+            </div>
+
+        </div>
+
+        <!-- 底部 -->
+        <div class="bottom">
+            <img src="datas/bottom/icon.png">
+            <div class="signature">GMCY复刻</div>
+        </div>
+
+
+
+        <div class="lable" id="about" v-show="displayLableAbout">
+            <div></div>
+            <img src="datas/about/about.png">
+        </div>
+
+        <div class="lable" id="join" v-show="displayLableJoin">
+            <div></div>
+            <img src="datas/join/join.png">
+        </div>
+
+        <div class="lable" id="news" v-show="displayLableNews">
+            <div></div>
+            <img src="datas/news/news.png">
+        </div>
+
+        <div class="public-navigation" v-show="displayNavigation">
+            <div class="navigation-left">
+                <div class="navigation-logo">
+                    <img src="datas/mihoyo-logo.png" alt="">
+                </div>
+                <div class="navigation-pans">
+                    <div class="navigation-pan" v-for="(pan, index) in texts['navigation']" :key="index">
+                        <div v-if="panChoiceId == index" class="navigation-pan-choice">
+                            {{pan}}
+                        </div>
+                        <div v-else v-on:click="choicePan(index)">
+                            {{pan}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-right">
+                <div class="navigation-right-cn">CH</div>
+                <div class="navigation-right-line"></div>
+                <div class="navigation-right-en">EN</div>
+            </div>
+        </div>
+
+
+        <div class="public-line-left-top" v-show="displayLineLeftTop">
+            <img src="datas/line-left-top.png">
+        </div>
+        <div class="public-line-left-bottom" v-show="displayLineLeftBottom">
+            <img src="datas/line-left-bottom.png">
+        </div>
+
+        <div class="public-btns" v-show="displayBtns">
+            <div></div>
+            <div class="public-btns-detail" v-on:click="nextPage()">
+                <div class="public-btns-next">
+                    <img class="public-btns-next-mouse" src="datas/btn-mouse.svg">
+                    <img class="public-btns-next-arrows" src="datas/btn-arrows.svg">
+                </div>
+                <div class="public-btns-line"></div>
+            </div>
+        </div>
+
+        <!-- 视频弹窗 -->
+        <div class="home-pop" v-show="displayPop" v-on:click="hiddenPop($event)">
+            <video id="video" class="home-pop-video" :src="video_src" autoplay="autoplay" loop="loop"
+                controls="controls"></video>
+            <img class="home-pop-close" src="datas/home/close.png" v-on:click="hiddenPop($event)">
+        </div>
+    </div>
+
+
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            mouseWheelY: 0,
+            mouseWheelIs: false,
+            pages: {
+                0: "home",
+                1: "product",
+                2: "about",
+                3: "join",
+                4: "news",
+                5: "bottom",
+            },
+            pageId: 0,
+            height: 0,
+            displayPop: false,
+
+            displayNavigation: false,
+
+            displayLineLeftTop: false,
+            displayLineLeftBottom: false,
+            displayBtns: false,
+
+            displayLableAbout: false,
+            displayLableJoin: false,
+            displayLableNews: false,
+
+
+            texts: {
+                "navigation": ["首页", "产品信息", "了解我们", "加入我们", "新闻动态"],
+            },
+
+            panChoiceId: 0,
+
+
+            about_btns: ["关于米哈游", "发展历程", "荣誉资质"],
+            about_btn_choice: 0,
+
+            historys: {
+                "2011": {
+                    "10": "米哈游创始团队推出独立游戏《FlyMe2theMoon》",
+                },
+                "2012": {
+                    "12": "上线《崩坏学园》",
+                },
+                "2014": {
+                    "03": "推出Q版射击手游《崩坏学园2》",
+                },
+                "2016": {
+                    "09": "推出3D动作手游《崩坏3》",
+                },
+                "2018": {
+                    "11": "推出社区产品《米游社》",
+                },
+                "2020": {
+                    "07": "推出女性向手游 《未定事件簿》",
+                    "08": "推出鹿鸣相关项目《人工桌面》",
+                    "09": "全球多平台发行开放世界游戏《原神》",
+                },
+                "2021": {
+                    "10": "公布银河冒险策略类游戏《崩坏：星穹铁道》",
+                },
+                "2022": {
+                    "05": "2022年5月，公布全新动作游戏《绝区零》",
+                },
+            },
+
+            history_year: "2022",
+            history_month: "05",
+            history_lock: true,
+
+            swiperPos: 10,
+
+            honor_qualifications: {
+                "2022": [
+                    ["米哈游-全国版权示范单位", "国家版权局"],
+                    ["米哈游-全国文化企业三十强", "中央宣传部"],
+                    ["米哈游 - 中国互联网综合实力前百强", "中国互联网协会"],
+                    ["原神 - 2022 TGA“玩家之声”奖", "TGA（The Game Awards）"],
+                    ["原神-2022 GRAND AWARD", "PlayStation Partner Awards"],
+                    ["原神 - 十大年度国家IP", "国家版权交易中心联席会议"],
+                    ["米哈游 - 上海文化企业十强", "上海市委宣传部"],
+                    ["米哈游 - 上海市企业技术中心", "上海市经济和信息化委员会、上海市财政局、国家税务总局上海税务局、上海海关"],
+                    ["原神 - 上海文化十大品牌", "上海市委宣传部"],
+                    ["米哈游 - ISO 27001安全管理体系认证   ISO 27701隐私信息管理体系证书", "英国标准协会BSI"],
+                    ["米哈游-年度十大著作权人", "中国版权保护中心、中国版权协会等"],
+                ],
+                "2021": [
+                    ["米哈游 - 2021-2022 国家文化出口重点企业", "商务部、中宣部、财政部、文化部、国家新闻出版广电总局"],
+                    ["原神 - 2021-2022 国家文化出口重点项目", " 商务部、中宣部、财政部、文化部、国家新闻出版广电总局"],
+                    ["米哈游 - 上海软件和信息技术服务业百强", "中国电子信息行业联合会"],
+                    ["原神 - 2021 最佳移动游戏奖项获奖", "TGA（The Game Awards）"],
+                    ["原神 - 2021 GRAND AWARD", "PlayStation Partner Awards"],
+                    ["原神 - 视觉图像奖", "Apple"],
+                    ["原神 - 游戏开发者选择奖 最佳移动游戏", "Game Developers Conference (GDC)"],
+                    ["未定事件簿 - 最具创新力游戏", "Google Play"],
+                    ["米哈游 - 最强新晋全球化品牌", " BRANDZ 2021"],
+                    ["原神 - 年度最佳游戏奖、年度最佳视听成就奖", "Pocket Gamer"],
+                    ["米哈游 - 上海企业100强", "上海市企业联合会；上海市经济团体联合会；上海市企业家协会；解放日报社"],
+                    ["原神 - 上海市高新技术成果转化项目", "上海市科学技术委员会"],
+                    ["原神 - 上海设计100+", "上海市经济和信息化委员会、上海设计100+组委会"],
+                    ["原神 - 首届中国游戏创新大赛 最佳创新游戏大奖", "中国游戏产业研究院"],
+                    ["米哈游 中国互联网综合实力前百家企业", "中国互联网协会"]
+                ],
+                "2020": [
+                    ["米哈游 - 中国互联网企业综合实力百强企业", "中国互联网协会"],
+                    ["米哈游 - 中国游戏十强 新锐游戏、优秀游戏音乐奖、研发团队奖", "中国音像与数字出版协"],
+                    ["原神 - 金手指奖 优秀游戏", "中国文化娱乐行业协会"],
+                    ["米哈游 - 金手指奖 中国游戏行业优秀企业、产品研发先进单位", "中国文化娱乐行业协会"],
+                    ["原神 - 年度最佳游戏 、最具创新力游戏、最受欢迎游戏", "Google Play"],
+                    ["原神 - App Store年度移动游戏", "Apple"],
+                    ["原神 - TapTap 年度游戏大赏 最佳游戏", "TapTap"],
+                    ["米哈游 - 上海软件和信息技术服务业百强", "上海市经济和信息化委员会"],
+                ],
+                "2019": [
+                    ["米哈游 - 2019-2020国家文化出口重点企业", "商务部、中宣部、财政部、文旅部、广电总局"],
+                    ["崩坏3 - 2019-2020国家文化出口重点项目", "商务部、中宣部、财政部、文旅部、广电总局"],
+                    ["米哈游 - 中国互联网百强企业", "中国互联网协会、工信部信息中心"],
+                    ["米哈游 - 中国游戏十强 十大海外拓展游戏企业、十大游戏研发企业", "中国音像与数字出版协会"],
+                    ["崩坏3 - 中国游戏十强 十大最受海外欢迎游戏", "中国音像与数字出版协会"],
+                    ["米哈游 - 上海市民营企业总部", "上海市商务委员会"],
+                    ["米哈游 - 上海市高新技术企业", "上海市科委、上海市财政局、上海市税务局"],
+                    ["米哈游 - 上海市文明单位", "上海市人民政府"],
+                ],
+                "2018": [
+                    ["米哈游 - 中国互联网百强企业", "中国互联网协会"],
+                    ["米哈游 - 中国游戏十强 年度中国十大海外拓展游戏企", "中国音像与数字出版协会"],
+                    ["崩坏3 - 中国游戏十强 年度十大最受海外欢迎游戏", "中国音像与数字出版协会"],
+                    ["米哈游 - 上海文化企业十佳", "中共上海市委宣传部"],
+                    ["米哈游 - 上海市高新技术企业", "上海市科委、上海市财政局、上海市税务局"],
+                    ["崩坏3 - 上海市高新技术成果转化项目百佳 ", "上海市科技创业中心"],
+                    ["米哈游 - 上海市软件和信息技术服务企业百强", "上海市经济和信息化委员会"],
+                    ["上海市软件行业核心竞争力企业（规模型）", "上海市软件行业协会"],
+                ],
+                "2017": [
+                    ["米哈游 - 中国互联网百强企业", "中国互联网协会"],
+                    ["米哈游 - 中国游戏十强 中国十大游戏研发商", "中国音像与数字出版协会"],
+                    ["米哈游 - 中国游戏十强 年度中国十大海外拓展游戏企业", "中国音像与数字出版协会"],
+                    ["米哈游 - 中国游戏十强 年度中国十大海外拓展游戏企业", "中国音像与数字出版协会"],
+                    ["米哈游 - 专精特新中小企业", "上海市经济和信息化委员会"],
+                    ["崩坏3 - 上海市高新技术成果转化项目", "上海市科学技术委员会"],
+                ],
+                "2016": [
+                    ["米哈游 - 上海市文化出口重点企业", "上海市商务委员会、中共上海市委宣传部、上海市文广局、上海市出版局、上海市经济和信息化委员会"],
+                    ["米哈游 - 上海市科技小巨人", "上海市科学技术委员会"],
+                    ["米哈游 - 上海市明星软件企业（快速增长型）", "上海市软件行业协会"],
+                    ["崩坏3 - 上海市优秀软件产品", "上海市软件行业协会"],
+                ],
+                "2015": [
+                    ["米哈游 - 上海市高新技术企业", "上海市科委、上海市财政局、上海市税务局"],
+                    ["崩坏学园2 - 上海市高新技术成果转化项目", "上海市科学技术委员会"],
+                ],
+            },
+            honor_qualifications_choice: "2022",
+
+            products_list: ["bhxy2", "bh3", "wdsjp", "ys", "bhxqtd", "jql", "mys", "rgzm"],
+            products_dict: {
+                "bhxy2": {
+                    "title": "Houkai Gakuen 2",
+                    "messages": ["米哈游崩坏系列经典Q版射击游戏。", "末日都市之旅，指尖爽快战斗，开启与少女们的末世物语。"],
+                    "goto": ["https://www.benghuai.com/", "https://weibo.com/u/1980539365", "https://space.bilibili.com/133934?from=search&seid=7948633669391971947"],
+                },
+                "bh3": {
+                    "title": "Honkai Impact 3rd",
+                    "messages": ["米哈游崩坏系列3D全视角卡通渲染、次世代动作游戏。", "在被崩坏侵蚀的世界中，勇敢的少女组成的女武神部队，为守护世界而展开了战斗。"],
+                    "goto": ["https://bh3.mihoyo.com/", "https://weibo.com/benghuai3", "https://space.bilibili.com/27534330?from=search&seid=5295102234387797014"],
+                },
+                "wdsjp": {
+                    "title": "Tears of Themis",
+                    "messages": ["米哈游律政恋爱推理游戏。", "你将扮演新人律师，在与他携手解决离奇委托的过程中，被卷入不为人知的阴谋。", "这是一场恋爱×推理的冒险，你将做出怎样的抉择？"],
+                    "goto": ["https://wd.mihoyo.com/fab/bdsem", "https://weibo.com/u/7072153506", "https://space.bilibili.com/436175352?from=search&seid=2195952268787938307&spm_id_from=333.337.0.0"],
+                },
+                "ys": {
+                    "title": "Genshin Impact",
+                    "messages": ["米哈游全新开放世界角色冒险游戏。", "你将在游戏中探索一个被称作「提瓦特」的幻想世界。"],
+                    "goto": ["https://ys.mihoyo.com/main/", "https://weibo.com/u/6593199887", "https://space.bilibili.com/401742377?from=search&seid=4576134198751221824"],
+                },
+                "bhxqtd": {
+                    "title": "Honkai: Star Rail",
+                    "messages": ["米哈游全新银河冒险策略游戏。", "你将由此探索新的文明，结识新的伙伴，", "在无数光怪陆离的「世界」与「世界」之间展开新的冒险。", "所有你想知道的，都将在群星中找到答案。"],
+                    "goto": ["https://sr.mihoyo.com/", "https://weibo.com/u/7643376782", "https://space.bilibili.com/1340190821"],
+                },
+                "jql": {
+                    "title": "Zenless Zone Zero",
+                    "messages": ["米哈游自研的全新动作游戏。", "在这个空洞灾祸频仍的世界里，崛起了一座另类的城市——「新艾利都」。", "而你将成为串联起空洞与都市的关键少数派，名为「绳匠」的特殊职业人士。", "这里正等待着见证你的故事。"],
+                    "goto": ["https://zzz.mihoyo.com/", "https://weibo.com/u/7632078520", "https://space.bilibili.com/1636034895?spm_id_from=333.337.0.0"],
+                },
+                "mys": {
+                    "title": "MIYOUSHE",
+                    "messages": ["米哈游旗下游戏玩家社区。", "集合了官方资讯、福利趣闻、实用工具及同人作品。", "让有爱的小伙伴们相聚在这里，一起聊游戏、找攻略、领奖励。"],
+                    "goto": ["https://www.miyoushe.com/", "https://weibo.com/u/7189835620", "https://space.bilibili.com/510189715?from=search&seid=16095934172179221010"],
+                },
+                "rgzm": {
+                    "title": "N0va Desktop",
+                    "messages": ["米哈游旗下动态桌面软件。", "一键点击唤醒鹿鸣，", "感受专属陪伴和沉浸式体验。"],
+                    "goto": ["https://n0va.mihoyo.com/#/", "https://weibo.com/u/7476362936", "https://space.bilibili.com/488836173?from=search&seid=507835342989199665"],
+                },
+
+            },
+            products_choice: "mys",
+            products_choice_index: 6,
+            products_id: true,
+            products_change: false,
+            products_changing: false,
+
+            video_src: "datas/home/video-start.mp4",
+
+            join_choice: 0,
+
+            join_dict: [
+                ["国际化类", 98, "IO", "https://jobs.mihoyo.com/social-recruitment/mihoyo/42280/#/jobs?zhineng=84174"],
+                ["质量管理类", 31, "QM", "https://jobs.mihoyo.com/#/jobs?zhineng=71699"],
+                ["产品策划类", 38, "PP", "https://jobs.mihoyo.com/#/jobs?zhineng=22499"],
+                ["程序&技术类", 126, "PT", "https://jobs.mihoyo.com/#/jobs?zhineng=22500"],
+                ["美术&表现类", 131, "FAP", "https://jobs.mihoyo.com/#/jobs?zhineng=22501"],
+                ["市场&商务类", 30, "MB", "https://jobs.mihoyo.com/#/jobs?zhineng=22502"],
+                ["运营类", 44, "O", "https://jobs.mihoyo.com/#/jobs?zhineng=22504"],
+                ["综合类", 50, "C", "https://jobs.mihoyo.com/#/jobs?zhineng=22505"],
+            ],
+
+            news_choice: 1,
+            news_dict: [
+                ["12/28", "2022", "米哈游荣获“全国文化企业30强”", "12月28日，光明日报社和经济日报社向社会联合发布了第十四届“全国文化企业30强”名单，上海米哈游网络科技股份有限公司等30家企业进入行列。"],
+                ["11/24", "2022", "米哈游荣获“上海文化企业十强”", "米哈游坚持助力传统文化创新表达、中华文化破圈传播，荣获上海文化企业十强，公司总裁刘伟荣获上海文化企业十大年度人物，公司原创IP“原神”荣获上海十大文化品牌。"],
+                ["11/24", "2022", "“你们好，见字如面！”——阅见未名：图书捐赠公益活动", "2022年，米哈游《未定事件簿》携手韬奋基金会，联合开展了「阅见未名」图书捐赠公益活动。在《未定事件簿》各位玩家的热心支持下，目前已向云南省大理白族自治州11所小学、云南省普洱市澜沧拉祜族自治县36所小学..."],
+            ]
+        },
+
+        created() {
+
+        },
+
+        mounted() {
+            this.height = document.getElementsByClassName("home")[0].clientHeight;
+
+            document.addEventListener('wheel', this.mousewheelListen, { passive: false, useCapture: false });
+
+            for (var i = 0; i < 3; i++) {
+                var box = document.getElementById("box-" + i);
+                box.addEventListener("mouseenter", this.aboutBtn1);
+                box.addEventListener("mouseout", this.aboutBtn2);
+            }
+
+            var joinBtn = document.getElementById("jbrt-box-move");
+            joinBtn.addEventListener("mouseenter", this.joinBtn1, false);
+            joinBtn.addEventListener("mouseout", this.joinBtn2, false);
+
+            var newsBox4 = document.getElementById("news-box4");
+            newsBox4.addEventListener("mouseenter", this.newsBox4On);
+            newsBox4.addEventListener("mouseout", this.newsBox4Out);
+
+            ['dragstart'].forEach(function (ev) {
+                document.addEventListener(ev, function (ev) {
+                    ev.preventDefault();
+                    ev.returnValue = false;
+                })
+            });
+
+            document.getElementById("imgBox2-2022-05").className = "de-iym-box2-choice";
+            document.getElementById("imgBox-2022-05").className = "de-img-box-choice";
+            document.getElementById("img-2022-05").className = "de-img-choice";
+
+
+            document.getElementById("productBox").addEventListener("mousemove", this.productMove);
+            document.getElementById("joinBigBox").addEventListener("mousemove", this.joinMove);
+        },
+
+        methods: {
+            mousewheelListen(e) {
+                e.preventDefault();
+
+                if (!this.mouseWheelIs) {
+                    this.mouseWheelIs = true
+
+                    if (e.deltaY >= 10) {
+                        this.nextPage();
+                    }
+                    else if (e.deltaY <= -10) {
+                        this.previousPage();
+                    }
+
+                    setTimeout(() => { this.mouseWheelIs = false }, 500);
+                }
+            },
+
+            toPage() {
+                document.documentElement.scrollTo({
+                    top: this.mouseWheelY,
+                    behavior: "smooth"
+                });
+            },
+
+            nextPage() {
+                this.height = document.getElementsByClassName("home")[0].clientHeight;
+
+                if (this.pageId == 0) {
+                    console.log("0 -> 1");
+                    this.mouseWheelY += this.height;
+
+                    this.displayNavigation = true;
+                    this.displayLineLeftBottom = true;
+                    this.displayBtns = true;
+
+                    var Navigation = document.getElementsByClassName("public-navigation")[0];
+                    var NavigationW = window.getComputedStyle(Navigation);
+
+                    Navigation.style.bottom = (this.height * (1 - parseFloat(("0.0" + NavigationW.height.split("%")[0])))) + "px";
+
+                    this.chocieProduct(this.products_choice, false);
+
+                    if (this.products_change == false) {
+                        this.products_change = true;
+                        setInterval(() => {
+                            this.changeProduct();
+                        }, 4500);
+                    }
+
+                    this.panChoiceId = 1;
+                }
+                else if (this.pageId == 1) {
+                    console.log("1 -> 2");
+                    this.mouseWheelY += this.height;
+
+                    this.displayLineLeftTop = true;
+
+                    this.displayLableAbout = true;
+
+                    setTimeout(() => {
+                        var imgAbout = document.getElementById("about");
+                        imgAbout.style.bottom = this.height * 0.92 - imgAbout.clientHeight + "px";
+                        var lable = document.getElementById("about");
+
+                        if (lable.classList.contains('lable-play')) {
+                            lable.className = "lable-replay lable"
+                        }
+                        else {
+                            lable.className = "lable-play lable"
+                        }
+                    }, 50)
+
+                    var aboutBox = document.getElementsByClassName("about-box")[0];
+
+                    setTimeout(() => {
+                        if (aboutBox.classList.contains("about-box-DownToUp")) {
+                            aboutBox.className = "about-box about-box-DownToUp-r";
+                        }
+                        else {
+                            aboutBox.className = "about-box about-box-DownToUp";
+                        }
+                    }, 200);
+
+
+                    this.panChoiceId = 2;
+                }
+                else if (this.pageId == 2) {
+                    console.log("2 -> 3");
+                    this.mouseWheelY += this.height;
+
+                    this.displayLableAbout = false;
+
+                    this.displayLableJoin = true;
+
+                    setTimeout(() => {
+                        var lable = document.getElementById("join");
+                        lable.style.bottom = this.height * 0.92 - lable.clientHeight + "px";
+
+                        if (lable.classList.contains('lable-play')) {
+                            lable.className = "lable-replay lable"
+                        }
+                        else {
+                            lable.className = "lable-play lable"
+                        }
+                    }, 50)
+
+                    this.panChoiceId = 3;
+                }
+                else if (this.pageId == 3) {
+                    console.log("3 -> 4");
+                    this.mouseWheelY += this.height;
+
+                    this.displayLableJoin = false;
+
+                    this.displayBtns = false;
+
+                    this.displayLableNews = true;
+
+                    setTimeout(() => {
+                        var lable = document.getElementById("news");
+                        lable.style.bottom = this.height * 0.92 - lable.clientHeight + "px";
+
+                        if (lable.classList.contains('lable-play')) {
+                            lable.className = "lable-replay lable"
+                        }
+                        else {
+                            lable.className = "lable-play lable"
+                        }
+                    }, 50)
+
+
+                    this.panChoiceId = 4;
+                }
+                else if (this.pageId == 4) {
+                    console.log("4 -> 5");
+                    var bottomHeight = document.getElementsByClassName("bottom")[0].clientHeight;
+                    this.mouseWheelY += bottomHeight;
+                }
+                else if (this.pageId == 5) {
+                    console.log("5 -> 5");
+                }
+
+                if (this.pageId < 5) {
+                    this.pageId += 1;
+                }
+
+                this.toPage();
+            },
+
+            previousPage() {
+                this.height = document.getElementsByClassName("home")[0].clientHeight;
+
+                if (this.pageId == 0) {
+                    console.log("0 -- 0");
+                }
+                else if (this.pageId == 1) {
+                    console.log("1 -> 0");
+                    this.mouseWheelY -= this.height;
+
+                    this.displayNavigation = false;
+                    this.displayBtns = false;
+
+                    setTimeout(() => {
+                        var homeIndex = document.getElementById("home-index");
+
+                        if (homeIndex.classList.contains('play')) {
+                            homeIndex.className = "replay home-index"
+                        }
+                        else {
+                            homeIndex.className = "play home-index"
+                        }
+                    }, 200)
+
+
+                    this.displayLineLeftTop = true;
+
+                    setTimeout(() => {
+                        this.displayLineLeftTop = false;
+                        this.displayLineLeftBottom = false;
+                    }, 500);
+
+
+
+
+                    this.panChoiceId = 0;
+                }
+                else if (this.pageId == 2) {
+                    console.log("2 -> 1");
+                    this.mouseWheelY -= this.height;
+
+                    this.displayLineLeftTop = false;
+                    this.displayLableAbout = false;
+
+                    this.chocieProduct(this.products_choice, false);
+
+                    if (this.products_change == false) {
+                        this.products_change = true;
+                        setInterval(() => {
+                            this.changeProduct();
+                        }, 4500);
+                    };
+
+                    this.panChoiceId = 1;
+                }
+                else if (this.pageId == 3) {
+                    console.log("3 -> 2");
+                    this.mouseWheelY -= this.height;
+
+                    this.displayLableJoin = false;
+
+                    this.displayLableAbout = true;
+                    setTimeout(() => {
+                        var imgAbout = document.getElementById("about");
+                        imgAbout.style.bottom = this.height * 0.92 - imgAbout.clientHeight + "px";
+                        var lable = document.getElementById("about");
+
+                        if (lable.classList.contains('lable-play')) {
+                            lable.className = "lable-replay lable"
+                        }
+                        else {
+                            lable.className = "lable-play lable"
+                        }
+                    }, 50)
+
+                    var aboutBox = document.getElementsByClassName("about-box")[0];
+
+                    setTimeout(() => {
+                        if (aboutBox.classList.contains("about-box-UpToDown")) {
+                            aboutBox.className = "about-box about-box-UpToDown-r";
+                        }
+                        else {
+                            aboutBox.className = "about-box about-box-UpToDown";
+                        }
+                    }, 200);
+
+                    this.panChoiceId = 2;
+                }
+                else if (this.pageId == 4) {
+                    console.log("4 -> 3");
+                    this.mouseWheelY -= this.height;
+
+                    this.displayBtns = true;
+
+                    this.displayLableNews = false;
+
+                    this.displayLableJoin = true;
+
+                    setTimeout(() => {
+                        var lable = document.getElementById("join");
+                        lable.style.bottom = this.height * 0.92 - lable.clientHeight + "px";
+
+                        if (lable.classList.contains('lable-play')) {
+                            lable.className = "lable-replay lable"
+                        }
+                        else {
+                            lable.className = "lable-play lable"
+                        }
+                    }, 50)
+
+                    this.panChoiceId = 3;
+                }
+                else if (this.pageId == 5) {
+                    console.log("5 -> 4");
+                    var bottomHeight = document.getElementsByClassName("bottom")[0].clientHeight;
+                    this.mouseWheelY -= bottomHeight;
+
+                    this.panChoiceId = 4;
+                }
+
+                if (this.pageId > 0) {
+                    this.pageId -= 1;
+                }
+
+                this.toPage();
+            },
+
+            showPop(url) {
+                this.displayPop = true;
+
+                let myVideo = document.getElementById('video')
+                myVideo.pause();
+
+                this.video_src = null;
+                this.video_src = url;
+
+                var pop = document.getElementsByClassName("home-pop")[0];
+                var start_video = document.getElementsByClassName("home-pop-video")[0];
+                var close = document.getElementsByClassName("home-pop-close")[0];
+
+                setTimeout(() => {
+                    close.style.top = (pop.clientHeight - start_video.clientHeight) / 2 + "px";
+                    close.style.left = (pop.clientWidth + start_video.clientWidth) / 2 + 10 + "px";
+                }, 100);
+
+                start_video.play();
+            },
+
+            hiddenPop(event) {
+                var start_video = document.getElementsByClassName("home-pop-video")[0];
+                if (event.target != start_video) {
+                    this.displayPop = false;
+                    start_video.pause();
+                }
+            },
+
+            choicePan(panId) {
+                var time = panId - this.panChoiceId;
+                if (time == 1) {
+                    this.nextPage();
+                }
+                else if (time == 2) {
+                    this.nextPage();
+                    this.nextPage();
+                }
+                else if (time == 3) {
+                    this.nextPage();
+                    this.nextPage();
+                    this.nextPage();
+                }
+                else if (time == -1) {
+                    this.previousPage();
+                }
+                else if (time == -2) {
+                    this.previousPage();
+                    this.previousPage();
+                }
+                else if (time == -3) {
+                    this.previousPage();
+                    this.previousPage();
+                    this.previousPage();
+                }
+                else if (time == -4) {
+                    this.previousPage();
+                    this.previousPage();
+                    this.previousPage();
+                    this.previousPage();
+                }
+
+
+                this.panChoiceId = panId;
+            },
+
+            choiceAbout(about_btn_choice) {
+                var aboutBtn = document.getElementById("aboutBtn" + this.about_btn_choice);
+
+                aboutBtn.className = "about-btn-m about-btn-m-h";
+
+                setTimeout(() => {
+                    aboutBtn.className = "about-btn-m";
+                }, 7000);
+
+                this.about_btn_choice = about_btn_choice;
+
+            },
+
+            aboutBtn1(e) {
+                var btn = document.getElementById("aboutBtn" + e.target.id.split("-")[1]);
+                btn.style.transitionDuration = "200ms";
+                btn.style.transform = "translateY(19.2px)";
+            },
+
+            aboutBtn2(e) {
+                var btn = document.getElementById("aboutBtn" + e.target.id.split("-")[1]);
+                btn.style.transitionDuration = "200ms";
+                btn.style.transform = "translateY(38.4px)";
+
+                setTimeout(() => {
+                    var btn = document.getElementById("aboutBtn" + e.target.id.split("-")[1]);
+                    btn.style.transitionDuration = "0ms";
+                    btn.style.transform = "";
+                }, 200)
+            },
+
+            joinBtn1() {
+                var btn = document.getElementById("jbrt-box-detail");
+                btn.style.transitionDuration = "200ms";
+                btn.style.transform = "translateY(19.2px)";
+            },
+
+            joinBtn2() {
+                var btn = document.getElementById("jbrt-box-detail");
+                btn.style.transitionDuration = "200ms";
+                btn.style.transform = "translateY(38.4px)";
+
+                setTimeout(() => {
+                    var btn = document.getElementById("jbrt-box-detail");
+                    btn.style.transitionDuration = "0ms";
+                    btn.style.transform = "";
+                }, 200)
+            },
+
+            isShowMore(len) {
+                return len % 2 ? true : false;
+            },
+
+            hqChoice(index) {
+
+                var move = document.getElementsByClassName("pan3-show-box-move")[0];
+
+                var btnLeft = document.getElementsByClassName("pan3-show-btn-left")[0];
+                btnLeft.className = "pan3-show-btn-left pan3-show-btn-dis";
+
+                var btnRight = document.getElementsByClassName("pan3-show-btn-right")[0];
+                btnRight.className = "pan3-show-btn-right";
+
+
+                var count = 2022 - index;
+                var slider = document.getElementById("slider");
+
+                var he = document.getElementsByClassName("right-choice")[0].clientHeight / 6 - 15;
+
+                if (this.honor_qualifications_choice - index > 0) {
+                    if (move.classList.contains('move-next')) {
+                        move.style.marginLeft = "-100%";
+                    }
+
+                    move.className = "pan3-show-box-move move-downToUp1";
+
+                    setTimeout(() => {
+                        move.style.marginLeft = "0px";
+                        move.style.transitionDuration = "0ms";
+                    }, 400);
+
+                    setTimeout(() => {
+                        move.style.transitionDuration = "500ms";
+
+                        this.honor_qualifications_choice = index;
+                        move.className = "pan3-show-box-move move-upToDown1";
+
+                        slider.style.transform = "translateY(" + 52.5 * count + "px)";
+                    }, 500);
+                }
+                else {
+                    if (move.classList.contains('move-next')) {
+                        move.style.marginLeft = "-100%";
+                    }
+
+                    move.className = "pan3-show-box-move move-downToUp2";
+
+                    setTimeout(() => {
+                        move.style.marginLeft = "0px";
+                        move.style.transitionDuration = "0ms";
+                    }, 400);
+
+                    setTimeout(() => {
+                        move.style.transitionDuration = "500ms";
+
+                        this.honor_qualifications_choice = index;
+                        move.className = "pan3-show-box-move move-upToDown2";
+
+                        slider.style.transform = "translateY(" + 47 * count + "px)";
+                    }, 500);
+                }
+
+            },
+
+            nextMove() {
+                var move = document.getElementsByClassName("pan3-show-box-move")[0];
+                move.className = "pan3-show-box-move move-next";
+
+                var btnLeft = document.getElementsByClassName("pan3-show-btn-left")[0];
+                btnLeft.className = "pan3-show-btn-left";
+
+                var btnRight = document.getElementsByClassName("pan3-show-btn-right")[0];
+                btnRight.className = "pan3-show-btn-right pan3-show-btn-dis";
+            },
+
+            lastMove() {
+                var move = document.getElementsByClassName("pan3-show-box-move")[0];
+                move.className = "pan3-show-box-move move-last";
+
+                var btnLeft = document.getElementsByClassName("pan3-show-btn-left")[0];
+                btnLeft.className = "pan3-show-btn-left pan3-show-btn-dis";
+
+                var btnRight = document.getElementsByClassName("pan3-show-btn-right")[0];
+                btnRight.className = "pan3-show-btn-right";
+            },
+
+            isMoreE() {
+                return this.honor_qualifications[this.honor_qualifications_choice].length > 8 ? true : false;
+            },
+
+            nextHistory() {
+                if (!this.history_lock) {
+                    return;
+                }
+
+                this.history_lock = false;
+
+                this.isBtnUse(true);
+
+                var pic = document.getElementsByClassName("pan2-pic")[0];
+                pic.className = "pan2-pic pan2-pic-out";
+
+                setTimeout(() => {
+                    pic.className = "pan2-pic";
+                    var Len1 = Object.keys(this.historys[this.history_year]).length;
+
+                    if (Len1 > 1) {
+                        var history_lt = Object.keys(this.historys[this.history_year]);
+                        var index = history_lt.indexOf(this.history_month);
+
+                        if (history_lt.indexOf(history_lt[index + 1]) != -1) {
+                            this.history_month = history_lt[index + 1];
+                            this.history_lock = true;
+                            this.historyChoiceIcon(true);
+                            return;
+                        }
+                    }
+
+                    var history_lt = Object.keys(this.historys);
+                    var index = history_lt.indexOf(this.history_year);
+
+                    if (history_lt.indexOf(history_lt[index + 1]) != -1) {
+                        this.history_year = history_lt[index + 1];
+                        this.history_month = Object.keys(this.historys[history_lt[index + 1]])[0];
+                        this.history_lock = true;
+                        this.historyChoiceIcon(true);
+                    }
+                }, 200);
+            },
+
+            lastHistory() {
+                if (!this.history_lock) {
+                    return;
+                }
+
+                this.history_lock = false;
+
+                this.isBtnUse(false);
+
+                var pic = document.getElementsByClassName("pan2-pic")[0];
+                pic.className = "pan2-pic pan2-pic-out";
+
+                setTimeout(() => {
+                    pic.className = "pan2-pic";
+
+                    var Len1 = Object.keys(this.historys[this.history_year]).length;
+
+                    if (Len1 > 1) {
+                        var history_lt = Object.keys(this.historys[this.history_year]);
+                        var index = history_lt.indexOf(this.history_month);
+
+                        if (history_lt.indexOf(history_lt[index - 1]) != -1) {
+                            this.history_month = history_lt[index - 1];
+
+                            this.history_lock = true;
+                            this.historyChoiceIcon(false);
+                            return;
+                        }
+                    }
+
+                    var history_lt = Object.keys(this.historys);
+                    var index = history_lt.indexOf(this.history_year);
+
+                    if (history_lt.indexOf(history_lt[index - 1]) != -1) {
+                        this.history_year = history_lt[index - 1];
+
+                        var arr = Object.keys(this.historys[history_lt[index - 1]]);
+                        this.history_month = arr[arr.length - 1];
+
+                        this.history_lock = true;
+                        this.historyChoiceIcon(false);
+                    }
+
+                }, 200);
+            },
+
+            isBtnUse(lr) {
+                var btnL = document.getElementsByClassName("pan2-btnLeft")[0];
+                var btnR = document.getElementsByClassName("pan2-btnRight")[0];
+
+                btnL.className = "pan2-btnLeft";
+                btnR.className = "pan2-btnRight";
+
+                if (this.history_year == "2012" && this.history_month == "12" && !lr) {
+                    btnL.className = "pan2-btnLeft pan2-btn-dis";
+                }
+                else if (this.history_year == "2021" && this.history_month == "10" && lr) {
+                    btnR.className = "pan2-btnRight pan2-btn-dis";
+                }
+            },
+
+            historyChoiceIcon(lr) {
+                var swiper = document.getElementsByClassName("pan2-swipers-detail-de")[0];
+
+                const swiperPosDic = {
+                    "2022.05": "-3400px",
+                    "2021.10": "-2966px",
+                    "2020.09": "-2533px",
+                    "2020.08": "-2304px",
+                    "2020.07": "-2070px",
+                    "2018.11": "-1639px",
+                    "2016.09": "-1207px",
+                    "2014.03": "-774px",
+                    "2012.12": "-341px",
+                    "2011.10": "89px"
+                }
+
+                swiper.style.marginLeft = swiperPosDic[this.history_year + "." + this.history_month];
+
+                var spdLt = Object.keys(swiperPosDic);
+                var index = spdLt.indexOf(this.history_year + "." + this.history_month);
+
+                if (lr) {
+                    var YMLT = spdLt[index + 1].split(".");
+
+                    document.getElementById("imgBox2-" + YMLT[0] + "-" + YMLT[1]).className = "de-iym-box2";
+                    document.getElementById("imgBox-" + YMLT[0] + "-" + YMLT[1]).className = "de-img-box";
+                    document.getElementById("img-" + YMLT[0] + "-" + YMLT[1]).className = "de-img";
+                }
+                else {
+                    var YMLT = spdLt[index - 1].split(".");
+
+                    document.getElementById("imgBox2-" + YMLT[0] + "-" + YMLT[1]).className = "de-iym-box2";
+                    document.getElementById("imgBox-" + YMLT[0] + "-" + YMLT[1]).className = "de-img-box";
+                    document.getElementById("img-" + YMLT[0] + "-" + YMLT[1]).className = "de-img";
+                }
+
+                document.getElementById("imgBox2-" + this.history_year + "-" + this.history_month).className = "de-iym-box2-choice";
+                document.getElementById("imgBox-" + this.history_year + "-" + this.history_month).className = "de-img-box-choice";
+                document.getElementById("img-" + this.history_year + "-" + this.history_month).className = "de-img-choice";
+            },
+
+            chocieProduct(product, control = true) {
+                if (this.products_choice == product && control) {
+                    return 0
+                }
+
+                var pr1 = document.getElementById("pr-titles");
+                var pr2 = document.getElementById("pr-line");
+                var pr3 = document.getElementById("pr-messages");
+                var pr4 = document.getElementById("pr-goTo");
+
+                if (this.products_id) {
+                    pr1.className = "pr-out1";
+                    pr2.className = "pr-line pr-out1";
+                    pr3.className = "pr-messages pr-out1";
+                    pr4.className = "pr-goTo pr-out1";
+
+                    this.products_id = !this.products_id;
+                }
+                else {
+                    pr1.className = "pr-out2";
+                    pr2.className = "pr-line pr-out2";
+                    pr3.className = "pr-messages pr-out2";
+                    pr4.className = "pr-goTo pr-out2";
+                    this.products_id = !this.products_id;
+                }
+
+                var img = document.getElementById("pl-top-img");
+
+                img.classList.add("pl-moving");
+
+                setTimeout(() => {
+                    if (pr1.classList.contains("pr-move1re")) {
+                        pr1.className = "pr-move1";
+
+                        setTimeout(() => {
+                            pr2.className = "pr-line pr-move1";
+                        }, 100)
+
+                        setTimeout(() => {
+                            pr3.className = "pr-messages pr-move1";
+                        }, 200)
+
+                        setTimeout(() => {
+                            pr4.className = "pr-goTo pr-move1";
+                        }, 300)
+
+                    }
+                    else {
+                        pr1.className = "pr-titles pr-move1re";
+
+                        setTimeout(() => {
+                            pr2.className = "pr-line pr-move1re";
+                        }, 100)
+
+                        setTimeout(() => {
+                            pr3.className = "pr-messages pr-move1re";
+                        }, 200)
+
+                        setTimeout(() => {
+                            pr4.className = "pr-goTo pr-move1re";
+                        }, 300)
+                    }
+
+                    var btns = document.getElementById("product-start-video-box");
+                    btns.classList.add("p-btn-disShow");
+
+                    setTimeout(() => {
+                        btns.className = "product-start-video-box";
+                    }, 1000)
+
+
+                    this.products_choice = product;
+
+                    for (var index = 0; index < this.products_list.length; index++) {
+                        if (this.products_choice == this.products_list[index]) {
+                            this.products_choice_index = index;
+                        }
+                    }
+
+                    if (img.classList.contains("product-img-play")) {
+                        img.className = "pl-top-img product-img-replay"
+                    }
+                    else {
+                        img.className = "pl-top-img product-img-play"
+                    }
+
+                    setTimeout(() => {
+                        if (this.products_changing == false) {
+                            this.products_changing = true;
+                            var img = document.getElementById("pl-top-img");
+                            img.classList.add("pl-moving2");
+                            setTimeout(() => {
+                                this.products_changing = false;
+                            }, 8000)
+                        }
+                    }, 3000)
+                }, 800)
+            },
+
+            changeProduct() {
+                this.chocieProduct(this.products_list[this.products_choice_index]);
+
+                this.products_choice_index += 1;
+                if (this.products_choice_index > 7) {
+                    this.products_choice_index = 0;
+                }
+            },
+
+            goToOtherWeb(product, index) {
+                window.location.href = this.products_dict[product]["goto"][index];
+            },
+
+            choiceJoin(index) {
+                var joinChoice0 = document.getElementById("join_choice_0");
+                var joinChoice1 = document.getElementById("join_choice_1");
+                var slid = document.getElementById("jblr-slid");
+
+                if (index == 0) {
+                    joinChoice0.className = "jbl-left-detail jbl-left-detail-choice";
+                    joinChoice1.className = "jbl-left-detail";
+                    slid.style.marginTop = "90px";
+                }
+                else {
+                    joinChoice0.className = "jbl-left-detail";
+                    joinChoice1.className = "jbl-left-detail jbl-left-detail-choice";
+                    slid.style.marginTop = "200px";
+                }
+
+                this.join_choice = index;
+            },
+
+            goToOtherWeb2(url) {
+                window.location.href = url;
+            },
+
+            joinShow(e) {
+                console.log(1);
+            },
+
+            joinHid(e) {
+                console.log(2);
+            },
+
+            changeNews(index) {
+                if (index == this.news_choice) {
+                    return;
+                }
+
+                var btn1 = document.getElementById("news-btn" + this.news_choice);
+                var btn2 = document.getElementById("news-btn" + index);
+
+                btn1.className = "news-btn";
+                btn2.className = "news-btn news-btn-choice";
+
+                var mid = document.getElementById("news-b1-mid");
+
+                mid.className = "news-b1-mid news-b1-mid-next";
+                setTimeout(() => {
+                    mid.className = "news-b1-mid";
+                }, 900);
+
+                this.news_choice = index;
+            },
+
+            newsBox4On() {
+                var title = document.getElementById("news-b1m-title");
+                var line = document.getElementById("news-b1b-text-line");
+                var img = document.getElementById("news-b1r-img");
+
+                title.className = "news-b1m-title news-b1m-title-on";
+                line.className = "news-b1b-text-line news-b1b-text-line-on";
+                img.className = "news-b1r-img news-b1r-img-on";
+            },
+
+            newsBox4Out() {
+                var title = document.getElementById("news-b1m-title");
+                var line = document.getElementById("news-b1b-text-line");
+                var img = document.getElementById("news-b1r-img");
+
+                title.className = "news-b1m-title";
+                line.className = "news-b1b-text-line";
+                img.className = "news-b1r-img";
+            },
+
+            joinMove(e) {
+                var mouseX = e.clientX;
+                var mouseY = e.clientY;
+
+                var joinBigBox = document.getElementById("joinBigBox");
+                var screenX = joinBigBox.clientWidth / 2;
+                var screenY = joinBigBox.clientHeight / 2;
+
+                var img5 = document.getElementById("join-top-img5");
+                var img6 = document.getElementById("join-top-img6");
+
+                img5.style.transform = "translateX(" + (screenX - mouseX) / 30 + "px)";
+                img6.style.transform = "translateX(" + (screenX - mouseX) / 50 + "px)";
+
+            },
+
+            productMove(e) {
+                var mouseX = e.clientX;
+                var mouseY = e.clientY;
+
+                var joinBigBox = document.getElementById("productBox");
+                var screenX = joinBigBox.clientWidth / 2;
+                var screenY = joinBigBox.clientHeight / 2;
+
+                var img = document.getElementById("pl-top-img");
+
+                img.style.transitionDuration = "0ms";
+                img.style.transform = "translateX(" + (screenX - mouseX) / 30 + "px)";
+
+            }
+        }
+    })
+</script>
+
+</html>
