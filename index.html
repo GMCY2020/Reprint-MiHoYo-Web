@@ -3534,7 +3534,6 @@
                 this.height = document.getElementsByClassName("home")[0].clientHeight;
 
                 if (this.pageId == 0) {
-                    console.log("0 -> 1");
                     this.mouseWheelY += this.height;
 
                     this.displayNavigation = true;
@@ -3558,7 +3557,6 @@
                     this.panChoiceId = 1;
                 }
                 else if (this.pageId == 1) {
-                    console.log("1 -> 2");
                     this.mouseWheelY += this.height;
 
                     this.displayLineLeftTop = true;
@@ -3593,7 +3591,6 @@
                     this.panChoiceId = 2;
                 }
                 else if (this.pageId == 2) {
-                    console.log("2 -> 3");
                     this.mouseWheelY += this.height;
 
                     this.displayLableAbout = false;
@@ -3615,7 +3612,6 @@
                     this.panChoiceId = 3;
                 }
                 else if (this.pageId == 3) {
-                    console.log("3 -> 4");
                     this.mouseWheelY += this.height;
 
                     this.displayLableJoin = false;
@@ -3640,12 +3636,10 @@
                     this.panChoiceId = 4;
                 }
                 else if (this.pageId == 4) {
-                    console.log("4 -> 5");
                     var bottomHeight = document.getElementsByClassName("bottom")[0].clientHeight;
                     this.mouseWheelY += bottomHeight;
                 }
                 else if (this.pageId == 5) {
-                    console.log("5 -> 5");
                 }
 
                 if (this.pageId < 5) {
@@ -3659,10 +3653,8 @@
                 this.height = document.getElementsByClassName("home")[0].clientHeight;
 
                 if (this.pageId == 0) {
-                    console.log("0 -- 0");
                 }
                 else if (this.pageId == 1) {
-                    console.log("1 -> 0");
                     this.mouseWheelY -= this.height;
 
                     this.displayNavigation = false;
@@ -3693,7 +3685,6 @@
                     this.panChoiceId = 0;
                 }
                 else if (this.pageId == 2) {
-                    console.log("2 -> 1");
                     this.mouseWheelY -= this.height;
 
                     this.displayLineLeftTop = false;
@@ -3711,7 +3702,6 @@
                     this.panChoiceId = 1;
                 }
                 else if (this.pageId == 3) {
-                    console.log("3 -> 2");
                     this.mouseWheelY -= this.height;
 
                     this.displayLableJoin = false;
@@ -3744,7 +3734,6 @@
                     this.panChoiceId = 2;
                 }
                 else if (this.pageId == 4) {
-                    console.log("4 -> 3");
                     this.mouseWheelY -= this.height;
 
                     this.displayBtns = true;
@@ -3768,7 +3757,6 @@
                     this.panChoiceId = 3;
                 }
                 else if (this.pageId == 5) {
-                    console.log("5 -> 4");
                     var bottomHeight = document.getElementsByClassName("bottom")[0].clientHeight;
                     this.mouseWheelY -= bottomHeight;
 
@@ -3783,7 +3771,6 @@
             },
 
             showPop(url) {
-                console.log(url);
                 this.displayPop = true;
 
                 let myVideo = document.getElementById('video')
@@ -4267,11 +4254,9 @@
             },
 
             joinShow(e) {
-                console.log(1);
             },
 
             joinHid(e) {
-                console.log(2);
             },
 
             changeNews(index) {
