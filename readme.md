@@ -8,7 +8,7 @@
 
 - 作者: GMCY
 - 系列: 复刻系列
-- 网站: [米哈游官网-复刻](https://gmcy2020.github.io/Reprint-MiHoYo/)
+- 网站: [米哈游官网-复刻](https://gmcy2020.github.io/Reprint-MiHoYo-Web/)
 - 话题(GitHub): [template](https://github.com/topics/template) \ [vue3](https://github.com/topics/vue3)
 - 创建时间: 2023/07/03
 
