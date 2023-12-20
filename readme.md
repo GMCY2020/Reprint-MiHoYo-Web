@@ -5,6 +5,7 @@
 - 作者: GMCY
 - 系列: 复刻系列
 - 网站: [米哈游官网-复刻的](https://gmcy2020.github.io/Reprint-MiHoYo-Web/)
+- 仓库: [GitHub](https://github.com/GMCY2020/Reprint-MiHoYo-Web) | [Gitee](https://gitee.com/GMCY2020/Reprint-MiHoYo-Web)
 - 话题(GitHub): [vue](https://github.com/topics/vue) \ [reprint](https://github.com/topics/reprint) \ [mihoyo](https://github.com/topics/mihoyo)
 - 创建时间: 2023/07/03
 
